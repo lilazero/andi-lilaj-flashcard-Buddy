@@ -1,7 +1,7 @@
+import FlashcardBuddy from "@/components/FlashcardBuddy";
+
 export default function Home() {
   return (
-    <>
-    <h1>Tabula Rasa</h1>
-    </>
+    <FlashcardBuddy />
   );
 }
