@@ -29,6 +29,13 @@ const [cards, setCards] = useState<Card[]>([]);
   };
 
 const addCard = (front: string, back: string): void => {
+  // Validierung
+  // cuz with !front and !back it was possible to add whitespace cards
+  if (front.trim() === "" || back.trim() === "") {
+    alert("Bitte füllen Sie sowohl die Vorder- als auch die Rückseite der Karte aus.");
+    return;
+  }
+
     const newCard: Card = {
       //random uuid but it's nextjs client side ? can it be susceptible to attacks?
       id: crypto.randomUUID(),
