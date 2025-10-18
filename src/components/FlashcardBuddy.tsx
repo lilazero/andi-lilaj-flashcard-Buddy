@@ -1,7 +1,12 @@
 // FlashcardKamerad? working title
 'use client';
 
+import { Card, CardComponent } from "./CardComponent";
+import { useState, useEffect } from 'react';
+
 const STORAGE_KEY = "flashcard_buddy_cards";
+
+
 export default function FlashcardBuddy() {
 
 const [cards, setCards] = useState<Card[]>([]); 
@@ -27,6 +32,21 @@ useEffect(() => {
 
   setCards([testCard, testCard2]);
 }, []);
+
+  const toggleAnswer = (id: number): void => {
+    console.log(`[toggleAnswer] Attempt to fetch card with id: ${id}...`);
+    
+    // TODO: add a setTimeout(() => {}) to simulate loading time
+    
+      setCards(
+        cards.map(card =>
+          card.id === id
+            ? { ...card, showAnswer: !card.showAnswer }
+            : card
+        )
+      );
+      
+  };
 
 
 
@@ -64,25 +84,45 @@ useEffect(() => {
 
         {/* Tag Filter , nur anzeigen wenn es karten gibt, oder auch ein search dass durch alles sucht, 
         */}
-        {/* <TagFilter> || <SearchBar /> */}
+        {/* <TagFilter> und oder <SearchBar /> */}
 
 
 
-        {/* Card List or Empty State 
+        {/* Card List or Empty State or there wont be the opportunity for an Empty State
         */}
 
         <div className="space-y-4">
+          {/* Empty State */}
+          {/* The condition 'cards.length <= 0' which should be filter.length? is redundant since it's
+          already inside an else block where 'cards.length === 0' is false. 
+          This condition will never be true and creates unreachable code. 
+          BUT I will leave it in case some reset filter logic or something else
+          doesn't work. 
+          Better safe than sorry. -someone who's been sorry a lot of times
+          */}
+          {cards.length === 0 ? (
             <div className="bg-white rounded-lg shadow-md p-8 text-center">
               <p className="text-lg text-gray-600 mb-4">
                 🎓 Noch keine Karten vorhanden. Füge deine erste Karte hinzu!
               </p>
             </div>
-            {/* cardlist.length <= 0 show this */}
-            <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <p className="text-lg text-gray-600 mb-4">
-                🔍 Keine Karten mit diesen Tags gefunden.
-              </p>
-            </div>
+          ) :
+          /*Vielleicht werde ich das nicht verwenden, weil ich das Tag über ein Dropdown-Menü auswählen kann  */
+          ( cards.length <= 0 ? (
+              <div className="bg-white rounded-lg shadow-md p-8 text-center">
+                <p className="text-lg text-gray-600 mb-4">
+                  🔍 Keine Karten mit diesen Tags gefunden.
+                </p>
+              </div>
+            ) : (
+            cards.map((card) => (
+              <CardComponent
+                key={card.id}
+                card={card}
+                onToggleAnswer={toggleAnswer}
+              />
+            ))
+          ))}
         </div>
 
         {/* Delete All Button only if cards.length > 0 */}
