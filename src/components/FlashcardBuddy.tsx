@@ -72,10 +72,10 @@ export default function FlashcardBuddy() {
   };
 
   useEffect(() => {
-    loadFromStorage();
     console.log(
       "[FlashcardBuddy] loadFromStorage called on component mount..."
     );
+    loadFromStorage();
   }, []);
 
   /* //* Save to Storage function */
