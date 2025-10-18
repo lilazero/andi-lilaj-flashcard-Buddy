@@ -33,7 +33,7 @@ useEffect(() => {
   setCards([testCard, testCard2]);
 }, []);
 
-  const toggleAnswer = (id: number): void => {
+  const toggleAnswer = (id: string): void => {
     console.log(`[toggleAnswer] Attempt to fetch card with id: ${id}...`);
     
     // TODO: add a setTimeout(() => {}) to simulate loading time
