@@ -3,7 +3,7 @@
 
 import AddCardForm from "./AddCardForm";
 import { Card, CardComponent } from "./CardComponent";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const STORAGE_KEY = "flashcard_buddy_cards";
 
@@ -39,6 +39,67 @@ const addCard = (front: string, back: string): void => {
     };
     setCards([...cards, newCard]);
   }
+
+  //* localStorage is available in any client-side context, but not during server-side rendering (SSR), since it's a browser API.
+  //* Which means to integrate XATA or some other database i have to burn this all to the ground and start over.
+  //* also load then save otherwise it saves an empty array over the one that's supposed to be loaded than it loads the empty one
+
+  /*  Load cards from localStorage on component mount */
+  const loadFromStorage = (): void => {
+  try {
+    const storedCards = localStorage.getItem(STORAGE_KEY);
+    if (storedCards) {
+      const parsedCards = JSON.parse(storedCards) as Card[];
+      console.log(`[loadFromStorage] Loaded ${parsedCards.length} cards from localStorage.`);
+      setCards(parsedCards);
+    } else {
+      console.log("[loadFromStorage] No cards found in localStorage.");
+    }
+  } catch (error) {
+    console.error("[loadFromStorage] Error loading cards from localStorage:", error);
+    setCards([]); // Reset to empty array on error // TODO!: Change when implementing database
+  } finally {
+    console.log("[loadFromStorage] Load attempt finished.");
+  }
+
+};
+
+useEffect(() => {
+  loadFromStorage();
+  console.log("[FlashcardBuddy] loadFromStorage called on component mount...");
+}, []);
+
+
+/* //* Save to Storage function */
+
+  const saveToStorage = (cardsToSave: Card[]):void => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsToSave)); 
+      console.log(`[saveToStorage] ${cardsToSave.length} Cards saved to localStorage.`);
+      // * For detailed logging in development, uncomment the following:
+      // *if (process.env.NODE_ENV === "development") {
+      //  * console.log(`[saveToStorage] Card IDs: ${cardsToSave.map(card => card.id).join(", ")}`);
+    } catch (err) {
+      console.error("[saveToStorage] Error saving cards to localStorage:", err);
+    } finally {
+      console.log("[saveToStorage] Save attempt finished.");
+    }
+  }
+
+/* Save to Storage side-effect function*/
+// Speichern der Karten in localStorage bei jeder Änderung
+// Using useRef to skip initial save on component mount. overkill
+// ! if it breaks again use useEffects saveToStorage(cards) without any conditions
+  const isInitialLoad = useRef(true);
+
+  useEffect(() => {
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
+    saveToStorage(cards);
+  }, [cards]);
+
 
 
   return (
