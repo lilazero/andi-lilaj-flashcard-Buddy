@@ -16,7 +16,7 @@ const [cards, setCards] = useState<Card[]>([]);
 // TODO! delete these later
 useEffect(() => {
   const testCard: Card = {
-    id: 1,
+    id: "1",
     front: "Was ist die Hauptstadt der USA?",
     back: "Langley Falls, Virginia",
     showAnswer: false,
@@ -24,7 +24,7 @@ useEffect(() => {
 
 
   const testCard2: Card = {
-    id: 2,
+    id: "2",
     front: "Was ist die Hauptstadt von Frankreich?",
     back: "Frankfurt",
     showAnswer: false,
