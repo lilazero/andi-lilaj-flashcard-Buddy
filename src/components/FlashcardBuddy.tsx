@@ -121,6 +121,10 @@ export default function FlashcardBuddy() {
     );
   };
 
+  const deleteCard = (id: string): void => {
+    setCards(cards.filter((card) => card.id !== id));
+  };
+
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="max-w-2xl mx-auto">
@@ -187,6 +191,7 @@ export default function FlashcardBuddy() {
                 onToggleAnswer={toggleAnswer}
                 onEdit={updateCard}
                 isLoading={loadingCardId === card.id}
+                onDelete={deleteCard}
               />
             ))
           )}

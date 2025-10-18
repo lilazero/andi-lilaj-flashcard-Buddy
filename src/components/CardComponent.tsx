@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
 import EditCardForm from "./EditCardForm";
 
@@ -12,12 +12,12 @@ export interface Card {
   showAnswer: boolean;
 }
 
-//TODO: add onDelete, OnEdit props etc.
 export interface CardComponentProps {
   card: Card;
   onToggleAnswer: (id: string) => void;
   onEdit: (id: string, front: string, back: string) => void;
   isLoading: boolean;
+  onDelete: (id: string) => void;
 }
 
 export function CardComponent({
@@ -25,6 +25,7 @@ export function CardComponent({
   onToggleAnswer,
   onEdit,
   isLoading,
+  onDelete,
 }: CardComponentProps) {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -84,6 +85,22 @@ export function CardComponent({
               <span>Bearbeiten</span>
             </button>
             {/* DeleteButton */}
+
+            <button
+              onClick={() => {
+                if (
+                  confirm(
+                    `Möchtest du diese Karte wirklich löschen?\n\n"${card.front}"`
+                  )
+                ) {
+                  onDelete(card.id);
+                }
+              }}
+              className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors flex items-center gap-2"
+            >
+              <Trash2 size={18} />
+              <span>Löschen</span>
+            </button>
           </div>
         </div>
       </div>
