@@ -19,14 +19,17 @@ export interface CardComponentProps {
   onEdit: (id: string, front: string, back: string) => void;
 }
 
-export function CardComponent({ card, onToggleAnswer, onEdit }: CardComponentProps) {
-
+export function CardComponent({
+  card,
+  onToggleAnswer,
+  onEdit,
+}: CardComponentProps) {
   const [isEditing, setIsEditing] = useState(false);
 
-const handleEdit = (front: string, back: string): void => {
-  onEdit(card.id, front, back);
-  setIsEditing(false);
-};
+  const handleEdit = (front: string, back: string): void => {
+    onEdit(card.id, front, back);
+    setIsEditing(false);
+  };
 
   if (isEditing) {
     return (

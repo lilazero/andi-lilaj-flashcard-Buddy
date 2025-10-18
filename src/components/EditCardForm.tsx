@@ -2,13 +2,17 @@ import { useState } from "react";
 import { Card } from "./CardComponent";
 import { X } from "lucide-react";
 
-interface EditCardFormProps{
+interface EditCardFormProps {
   card: Card;
   onSave: (front: string, back: string) => void;
   onCancel: () => void;
 }
 
-export default function EditCardForm({ card, onSave, onCancel }: EditCardFormProps) {
+export default function EditCardForm({
+  card,
+  onSave,
+  onCancel,
+}: EditCardFormProps) {
   const [front, setFront] = useState(card.front);
   const [back, setBack] = useState(card.back);
 
@@ -18,25 +22,33 @@ export default function EditCardForm({ card, onSave, onCancel }: EditCardFormPro
   const handleSave = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     onSave(front, back);
-  }
+  };
 
-return (
+  return (
     <div className="p-6 bg-white border-2 border-purple-500 rounded-lg shadow-lg">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-bold text-gray-800">✏️ Karte bearbeiten</h3>
+        <h3 className="text-2xl font-bold text-gray-800">
+          ✏️ Karte bearbeiten
+        </h3>
         <button
           onClick={onCancel}
           className="p-1 transition-colors rounded hover:bg-gray-100"
           title="Abbrechen"
         >
-          <X size={24} className="text-gray-600 cursor-pointer hover:border-2" />
+          <X
+            size={24}
+            className="text-gray-600 cursor-pointer hover:border-2"
+          />
         </button>
       </div>
 
       <form onSubmit={handleSave} className="space-y-4">
         {/* Front Input */}
         <div>
-          <label htmlFor="edit-front" className="block mb-2 text-sm font-semibold text-gray-700">
+          <label
+            htmlFor="edit-front"
+            className="block mb-2 text-sm font-semibold text-gray-700"
+          >
             📄Vorderseite (Frage)
           </label>
           <input
@@ -50,7 +62,10 @@ return (
 
         {/* Back Input */}
         <div>
-          <label htmlFor="edit-back" className="block mb-2 text-sm font-semibold text-gray-700">
+          <label
+            htmlFor="edit-back"
+            className="block mb-2 text-sm font-semibold text-gray-700"
+          >
             📲Rückseite (Antwort)
           </label>
           <input

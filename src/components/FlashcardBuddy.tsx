@@ -1,40 +1,36 @@
 // FlashcardKamerad? working title
-'use client';
+"use client";
 
 import AddCardForm from "./AddCardForm";
 import { Card, CardComponent } from "./CardComponent";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 const STORAGE_KEY = "flashcard_buddy_cards";
 
-
 export default function FlashcardBuddy() {
-
-const [cards, setCards] = useState<Card[]>([]); 
-
+  const [cards, setCards] = useState<Card[]>([]);
 
   const toggleAnswer = (id: string): void => {
     console.log(`[toggleAnswer] Attempt to fetch card with id: ${id}...`);
-    
+
     // TODO: add a setTimeout(() => {}) to simulate loading time
-    
-      setCards(
-        cards.map(card =>
-          card.id === id
-            ? { ...card, showAnswer: !card.showAnswer }
-            : card
-        )
-      );
-      
+
+    setCards(
+      cards.map((card) =>
+        card.id === id ? { ...card, showAnswer: !card.showAnswer } : card
+      )
+    );
   };
 
-const addCard = (front: string, back: string): void => {
-  // Validierung
-  // cuz with !front and !back it was possible to add whitespace cards
-  if (front.trim() === "" || back.trim() === "") {
-    alert("Bitte füllen Sie sowohl die Vorder- als auch die Rückseite der Karte aus.");
-    return;
-  }
+  const addCard = (front: string, back: string): void => {
+    // Validierung
+    // cuz with !front and !back it was possible to add whitespace cards
+    if (front.trim() === "" || back.trim() === "") {
+      alert(
+        "Bitte füllen Sie sowohl die Vorder- als auch die Rückseite der Karte aus."
+      );
+      return;
+    }
 
     const newCard: Card = {
       //random uuid but it's nextjs client side ? can it be susceptible to attacks?
@@ -45,7 +41,7 @@ const addCard = (front: string, back: string): void => {
       // TODO: implement tags later
     };
     setCards([...cards, newCard]);
-  }
+  };
 
   //* localStorage is available in any client-side context, but not during server-side rendering (SSR), since it's a browser API.
   //* Which means to integrate XATA or some other database i have to burn this all to the ground and start over.
@@ -53,36 +49,43 @@ const addCard = (front: string, back: string): void => {
 
   /*  Load cards from localStorage on component mount */
   const loadFromStorage = (): void => {
-  try {
-    const storedCards = localStorage.getItem(STORAGE_KEY);
-    if (storedCards) {
-      const parsedCards = JSON.parse(storedCards) as Card[];
-      console.log(`[loadFromStorage] Loaded ${parsedCards.length} cards from localStorage.`);
-      setCards(parsedCards);
-    } else {
-      console.log("[loadFromStorage] No cards found in localStorage.");
-    }
-  } catch (error) {
-    console.error("[loadFromStorage] Error loading cards from localStorage:", error);
-    setCards([]); // Reset to empty array on error // TODO!: Change when implementing database
-  } finally {
-    console.log("[loadFromStorage] Load attempt finished.");
-  }
-
-};
-
-useEffect(() => {
-  loadFromStorage();
-  console.log("[FlashcardBuddy] loadFromStorage called on component mount...");
-}, []);
-
-
-/* //* Save to Storage function */
-
-  const saveToStorage = (cardsToSave: Card[]):void => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsToSave)); 
-      console.log(`[saveToStorage] ${cardsToSave.length} Cards saved to localStorage.`);
+      const storedCards = localStorage.getItem(STORAGE_KEY);
+      if (storedCards) {
+        const parsedCards = JSON.parse(storedCards) as Card[];
+        console.log(
+          `[loadFromStorage] Loaded ${parsedCards.length} cards from localStorage.`
+        );
+        setCards(parsedCards);
+      } else {
+        console.log("[loadFromStorage] No cards found in localStorage.");
+      }
+    } catch (error) {
+      console.error(
+        "[loadFromStorage] Error loading cards from localStorage:",
+        error
+      );
+      setCards([]); // Reset to empty array on error // TODO!: Change when implementing database
+    } finally {
+      console.log("[loadFromStorage] Load attempt finished.");
+    }
+  };
+
+  useEffect(() => {
+    loadFromStorage();
+    console.log(
+      "[FlashcardBuddy] loadFromStorage called on component mount..."
+    );
+  }, []);
+
+  /* //* Save to Storage function */
+
+  const saveToStorage = (cardsToSave: Card[]): void => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsToSave));
+      console.log(
+        `[saveToStorage] ${cardsToSave.length} Cards saved to localStorage.`
+      );
       // * For detailed logging in development, uncomment the following:
       // *if (process.env.NODE_ENV === "development") {
       //  * console.log(`[saveToStorage] Card IDs: ${cardsToSave.map(card => card.id).join(", ")}`);
@@ -91,12 +94,12 @@ useEffect(() => {
     } finally {
       console.log("[saveToStorage] Save attempt finished.");
     }
-  }
+  };
 
-/* Save to Storage side-effect function*/
-// Speichern der Karten in localStorage bei jeder Änderung
-// Using useRef to skip initial save on component mount. overkill
-// ! if it breaks again use useEffects saveToStorage(cards) without any conditions
+  /* Save to Storage side-effect function*/
+  // Speichern der Karten in localStorage bei jeder Änderung
+  // Using useRef to skip initial save on component mount. overkill
+  // ! if it breaks again use useEffects saveToStorage(cards) without any conditions
   const isInitialLoad = useRef(true);
 
   useEffect(() => {
@@ -107,9 +110,10 @@ useEffect(() => {
     saveToStorage(cards);
   }, [cards]);
 
-
-  const updateCard = (id: string, front: string, back: string, ): void => {
-    setCards(cards.map(card => card.id === id ? { ...card, front, back} : card));
+  const updateCard = (id: string, front: string, back: string): void => {
+    setCards(
+      cards.map((card) => (card.id === id ? { ...card, front, back } : card))
+    );
   };
 
   return (
@@ -130,28 +134,23 @@ useEffect(() => {
 
         {/* Card Count and Info */}
         <div className="mb-6 text-sm text-center text-gray-600">
-          {cards.length >0 &&(
-
+          {cards.length > 0 && (
             <>
               {/* Etwas wie 🔎 Du hast X Karten dann ob es gibt ein filter (Y mit Filtern angezeigt) */}
               <span>
                 Du hast <strong>{cards.length}</strong> Karten
               </span>
-                <span className="ml-3">
-                  {/* (Y shown wegen Filtern) */}
-                </span>
+              <span className="ml-3">{/* (Y shown wegen Filtern) */}</span>
             </>
-        )}
+          )}
         </div>
 
-        {/* Tag Filter , nur anzeigen wenn es karten gibt, oder auch ein search dass durch alles sucht, 
-        */}
+        {/* Tag Filter , nur anzeigen wenn es karten gibt, oder auch ein search dass durch alles sucht,
+         */}
         {/* <TagFilter> und oder <SearchBar /> */}
 
-
-
         {/* Card List or Empty State or there wont be the opportunity for an Empty State
-        */}
+         */}
 
         <div className="space-y-4">
           {/* Empty State */}
@@ -168,15 +167,14 @@ useEffect(() => {
                 🎓 Noch keine Karten vorhanden. Füge deine erste Karte hinzu!
               </p>
             </div>
-          ) :
-          /*Vielleicht werde ich das nicht verwenden, weil ich das Tag über ein Dropdown-Menü auswählen kann  */
-          ( cards.length <= 0 ? (
-              <div className="p-8 text-center bg-white rounded-lg shadow-md">
-                <p className="mb-4 text-lg text-gray-600">
-                  🔍 Keine Karten mit diesen Tags gefunden.
-                </p>
-              </div>
-            ) : (
+          ) : /*Vielleicht werde ich das nicht verwenden, weil ich das Tag über ein Dropdown-Menü auswählen kann  */
+          cards.length <= 0 ? (
+            <div className="p-8 text-center bg-white rounded-lg shadow-md">
+              <p className="mb-4 text-lg text-gray-600">
+                🔍 Keine Karten mit diesen Tags gefunden.
+              </p>
+            </div>
+          ) : (
             cards.map((card) => (
               <CardComponent
                 key={card.id}
@@ -185,27 +183,26 @@ useEffect(() => {
                 onEdit={updateCard}
               />
             ))
-          ))}
+          )}
         </div>
 
         {/* Delete All Button only if cards.length > 0 */}
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => {
-                if (cards.length > 0) {
-                  if (confirm("Möchten Sie wirklich alle Karten löschen?")) {
-                    setCards([]);
-                  }
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => {
+              if (cards.length > 0) {
+                if (confirm("Möchten Sie wirklich alle Karten löschen?")) {
+                  setCards([]);
                 }
-                else {
-                  alert("Es gibt keine Karten zum Löschen vorhanden.");
-                }
-              }}
-              className="px-6 py-3 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
-            >
-              🗑️ Alle Karten löschen
-            </button>
-          </div>
+              } else {
+                alert("Es gibt keine Karten zum Löschen vorhanden.");
+              }
+            }}
+            className="px-6 py-3 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
+          >
+            🗑️ Alle Karten löschen
+          </button>
+        </div>
       </div>
     </div>
   );
