@@ -128,7 +128,16 @@ useEffect(() => {
         {/* Delete All Button only if cards.length > 0 */}
           <div className="text-center mt-8">
             <button
-              // onClick={deleteAllCards}
+              onClick={() => {
+                if (cards.length > 0) {
+                  if (confirm("Möchten Sie wirklich alle Karten löschen?")) {
+                    setCards([]);
+                  }
+                }
+                else {
+                  alert("Es gibt keine Karten zum Löschen vorhanden.");
+                }
+              }}
               className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors"
             >
               🗑️ Alle Karten löschen
