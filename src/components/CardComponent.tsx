@@ -17,12 +17,14 @@ export interface CardComponentProps {
   card: Card;
   onToggleAnswer: (id: string) => void;
   onEdit: (id: string, front: string, back: string) => void;
+  isLoading: boolean;
 }
 
 export function CardComponent({
   card,
   onToggleAnswer,
   onEdit,
+  isLoading,
 }: CardComponentProps) {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -58,13 +60,20 @@ export function CardComponent({
             {/* Show Answer Button */}
             <button
               onClick={() => onToggleAnswer(card.id)}
+              disabled={isLoading}
               className={`flex-1 px-4 py-2 rounded-lg font-semibold transition-colors min-w-[120px] ${
-                card.showAnswer
+                isLoading
+                  ? "bg-gray-300 text-gray-700 cursor-not-allowed"
+                  : card.showAnswer
                   ? "bg-yellow-500 text-white hover:bg-yellow-600"
                   : "bg-blue-500 text-white hover:bg-blue-600"
               }`}
             >
-              {card.showAnswer ? "❌ Antwort verstecken" : "✅ Antwort zeigen"}
+              {isLoading
+                ? "⏳ Wird geladen..."
+                : card.showAnswer
+                ? "❌ Antwort verstecken"
+                : "✅ Antwort zeigen"}
             </button>
             {/* EditButton */}
             <button

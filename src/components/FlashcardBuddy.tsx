@@ -9,17 +9,22 @@ const STORAGE_KEY = "flashcard_buddy_cards";
 
 export default function FlashcardBuddy() {
   const [cards, setCards] = useState<Card[]>([]);
+  const [loadingCardId, setLoadingCardId] = useState<string | null>(null);
 
   const toggleAnswer = (id: string): void => {
     console.log(`[toggleAnswer] Attempt to fetch card with id: ${id}...`);
 
-    // TODO: add a setTimeout(() => {}) to simulate loading time
+    setLoadingCardId(id);
 
-    setCards(
-      cards.map((card) =>
-        card.id === id ? { ...card, showAnswer: !card.showAnswer } : card
-      )
-    );
+    setTimeout(() => {
+      setCards(
+        cards.map((card) =>
+          card.id === id ? { ...card, showAnswer: !card.showAnswer } : card
+        )
+      );
+      setLoadingCardId(null);
+      //TODO: es auf 500 bis 700 ändern, wie es im PDF verlangt ist. Im Moment ist es ok 500 ist zu langsam
+    }, 200);
   };
 
   const addCard = (front: string, back: string): void => {
@@ -181,6 +186,7 @@ export default function FlashcardBuddy() {
                 card={card}
                 onToggleAnswer={toggleAnswer}
                 onEdit={updateCard}
+                isLoading={loadingCardId === card.id}
               />
             ))
           )}
