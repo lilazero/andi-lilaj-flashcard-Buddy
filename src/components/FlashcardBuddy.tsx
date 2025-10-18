@@ -1,6 +1,7 @@
 // FlashcardKamerad? working title
 'use client';
 
+import AddCardForm from "./AddCardForm";
 import { Card, CardComponent } from "./CardComponent";
 import { useState, useEffect } from 'react';
 
@@ -48,7 +49,17 @@ useEffect(() => {
       
   };
 
-
+const addCard = (front: string, back: string): void => {
+    const newCard: Card = {
+      //random uuid but it's nextjs client side ? can it be susceptible to attacks?
+      id: crypto.randomUUID(),
+      front,
+      back,
+      showAnswer: false,
+      // TODO: implement tags later
+    };
+    setCards([...cards, newCard]);
+  }
 
 
   return (
@@ -65,6 +76,7 @@ useEffect(() => {
         </div>
 
         {/* Add Card Form */}
+        <AddCardForm onAddCard={addCard} />
 
         {/* Card Count and Info */}
         <div className="text-center mb-6 text-sm text-gray-600">
