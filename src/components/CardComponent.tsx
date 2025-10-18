@@ -1,5 +1,9 @@
 "use client";
 
+import { Edit } from "lucide-react";
+import { useState } from "react";
+import EditCardForm from "./EditCardForm";
+
 // create a models.ts file? You know. Decoupling or is it separation of concerns? 🤔
 export interface Card {
   id: string;
@@ -12,9 +16,28 @@ export interface Card {
 export interface CardComponentProps {
   card: Card;
   onToggleAnswer: (id: string) => void;
+  onEdit: (id: string, front: string, back: string) => void;
 }
 
-export function CardComponent({ card, onToggleAnswer }: CardComponentProps) {
+export function CardComponent({ card, onToggleAnswer, onEdit }: CardComponentProps) {
+
+  const [isEditing, setIsEditing] = useState(false);
+
+const handleEdit = (front: string, back: string): void => {
+  onEdit(card.id, front, back);
+  setIsEditing(false);
+};
+
+  if (isEditing) {
+    return (
+      <EditCardForm
+        card={card}
+        onSave={handleEdit}
+        onCancel={() => setIsEditing(false)}
+      />
+    );
+  }
+
   return (
     <>
       <h1>CardComponent</h1>
@@ -40,6 +63,15 @@ export function CardComponent({ card, onToggleAnswer }: CardComponentProps) {
             >
               {card.showAnswer ? "❌ Antwort verstecken" : "✅ Antwort zeigen"}
             </button>
+            {/* EditButton */}
+            <button
+              onClick={() => setIsEditing(true)}
+              className="px-4 py-2 bg-purple-500 text-white rounded-lg font-semibold hover:bg-purple-600 transition-colors flex items-center gap-2"
+            >
+              <Edit size={18} /> {/* edit icon */}
+              <span>Bearbeiten</span>
+            </button>
+            {/* DeleteButton */}
           </div>
         </div>
       </div>

@@ -101,6 +101,9 @@ useEffect(() => {
   }, [cards]);
 
 
+  const updateCard = (id: string, front: string, back: string, ): void => {
+    setCards(cards.map(card => card.id === id ? { ...card, front, back} : card));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
@@ -172,6 +175,7 @@ useEffect(() => {
                 key={card.id}
                 card={card}
                 onToggleAnswer={toggleAnswer}
+                onEdit={updateCard}
               />
             ))
           ))}
