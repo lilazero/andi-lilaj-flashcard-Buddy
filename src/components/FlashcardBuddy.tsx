@@ -1,4 +1,3 @@
-// FlashcardKamerad? working title
 "use client";
 
 import AddCardForm from "./AddCardForm";
@@ -44,6 +43,7 @@ export default function FlashcardBuddy() {
       back,
       showAnswer: false,
       // TODO: implement tags later
+      // TODO: dont forget trimming, undercasing etc, dupinglicates etc
     };
     setCards([...cards, newCard]);
   };
@@ -83,17 +83,16 @@ export default function FlashcardBuddy() {
     loadFromStorage();
   }, []);
 
-  /* //* Save to Storage function */
-
+  /*  Save To Storage function */
   const saveToStorage = (cardsToSave: Card[]): void => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsToSave));
       console.log(
         `[saveToStorage] ${cardsToSave.length} Cards saved to localStorage.`
       );
-      // * For detailed logging in development, uncomment the following:
-      // *if (process.env.NODE_ENV === "development") {
-      //  * console.log(`[saveToStorage] Card IDs: ${cardsToSave.map(card => card.id).join(", ")}`);
+      //  For detailed logging in development, uncomment the following:
+      //  if (process.env.NODE_ENV === "development") {
+      //  console.log(`[saveToStorage] Card IDs: ${cardsToSave.map(card => card.id).join(", ")}`);
     } catch (err) {
       console.error("[saveToStorage] Error saving cards to localStorage:", err);
     } finally {

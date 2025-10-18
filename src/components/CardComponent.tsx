@@ -46,7 +46,6 @@ export function CardComponent({
 
   return (
     <>
-      <h1>CardComponent</h1>
       <div>
         <div className="p-6 transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
           {/* Card Content */}
