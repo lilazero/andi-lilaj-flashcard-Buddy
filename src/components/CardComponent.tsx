@@ -27,7 +27,8 @@ export function CardComponent({ card, onToggleAnswer }: CardComponentProps) {
             </p>
           </div>
 
-          <div className="flex gap-3 justify-between items-center flex-wrap">{/* fit nicely with edit and other buttons later */} 
+          {/* Button container */}
+          <div className="flex gap-3 justify-between items-center flex-wrap">
             {/* Show Answer Button */}
             <button
               onClick={() => onToggleAnswer(card.id)}
