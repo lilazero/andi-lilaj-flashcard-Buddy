@@ -48,15 +48,18 @@ useEffect(() => {
 
         {/* Card Count and Info */}
         <div className="text-center mb-6 text-sm text-gray-600">
+          {cards.length >0 &&(
+
             <>
               {/* Etwas wie 🔎 Du hast X Karten dann ob es gibt ein filter (Y mit Filtern angezeigt) */}
               <span>
-                Du hast <strong> X {/* cards.length */}</strong> Karten
+                Du hast <strong>{cards.length}</strong> Karten
               </span>
                 <span className="ml-3">
                   {/* (Y shown wegen Filtern) */}
                 </span>
             </>
+        )}
         </div>
 
         {/* Tag Filter , nur anzeigen wenn es karten gibt, oder auch ein search dass durch alles sucht, 
