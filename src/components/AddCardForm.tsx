@@ -51,7 +51,12 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
           />
         </label>
       </div>
-      <button type="submit">Karte hinzufügen</button>
+        <button
+          type="submit"
+          className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-indigo-700 transition-all transform hover:scale-105 active:scale-95"
+        >
+          ✨ Karte hinzufügen
+        </button>
     </form>
   );
 }
