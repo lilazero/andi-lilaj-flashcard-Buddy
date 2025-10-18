@@ -13,27 +13,6 @@ export default function FlashcardBuddy() {
 const [cards, setCards] = useState<Card[]>([]); 
 
 
-// 2 test cards
-// TODO! delete these later
-useEffect(() => {
-  const testCard: Card = {
-    id: "1",
-    front: "Was ist die Hauptstadt der USA?",
-    back: "Langley Falls, Virginia",
-    showAnswer: false,
-  };
-
-
-  const testCard2: Card = {
-    id: "2",
-    front: "Was ist die Hauptstadt von Frankreich?",
-    back: "Frankfurt",
-    showAnswer: false,
-  };
-
-  setCards([testCard, testCard2]);
-}, []);
-
   const toggleAnswer = (id: string): void => {
     console.log(`[toggleAnswer] Attempt to fetch card with id: ${id}...`);
     
