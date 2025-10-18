@@ -3,15 +3,15 @@
 // create a models.ts file? You know. Decoupling or is it separation of concerns? 🤔
 export interface Card {
   id: string;
-  front: string; 
-  back: string; 
+  front: string;
+  back: string;
   showAnswer: boolean;
 }
 
 //TODO: add onDelete, OnEdit props etc.
 export interface CardComponentProps {
   card: Card;
-  onToggleAnswer: (id: string) => void; 
+  onToggleAnswer: (id: string) => void;
 }
 
 export function CardComponent({ card, onToggleAnswer }: CardComponentProps) {
