@@ -106,11 +106,11 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+        <div className="mb-8 text-center">
+          <h1 className="mb-2 text-4xl font-bold text-gray-800">
             📚 Flashcard Buddy
           </h1>
           <p className="text-gray-600">
@@ -122,7 +122,7 @@ useEffect(() => {
         <AddCardForm onAddCard={addCard} />
 
         {/* Card Count and Info */}
-        <div className="text-center mb-6 text-sm text-gray-600">
+        <div className="mb-6 text-sm text-center text-gray-600">
           {cards.length >0 &&(
 
             <>
@@ -156,16 +156,16 @@ useEffect(() => {
           Better safe than sorry. -someone who's been sorry a lot of times
           */}
           {cards.length === 0 ? (
-            <div className="bg-white rounded-lg shadow-md p-8 text-center">
-              <p className="text-lg text-gray-600 mb-4">
+            <div className="p-8 text-center bg-white rounded-lg shadow-md">
+              <p className="mb-4 text-lg text-gray-600">
                 🎓 Noch keine Karten vorhanden. Füge deine erste Karte hinzu!
               </p>
             </div>
           ) :
           /*Vielleicht werde ich das nicht verwenden, weil ich das Tag über ein Dropdown-Menü auswählen kann  */
           ( cards.length <= 0 ? (
-              <div className="bg-white rounded-lg shadow-md p-8 text-center">
-                <p className="text-lg text-gray-600 mb-4">
+              <div className="p-8 text-center bg-white rounded-lg shadow-md">
+                <p className="mb-4 text-lg text-gray-600">
                   🔍 Keine Karten mit diesen Tags gefunden.
                 </p>
               </div>
@@ -182,7 +182,7 @@ useEffect(() => {
         </div>
 
         {/* Delete All Button only if cards.length > 0 */}
-          <div className="text-center mt-8">
+          <div className="mt-8 text-center">
             <button
               onClick={() => {
                 if (cards.length > 0) {
@@ -194,7 +194,7 @@ useEffect(() => {
                   alert("Es gibt keine Karten zum Löschen vorhanden.");
                 }
               }}
-              className="px-6 py-3 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors"
+              className="px-6 py-3 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
             >
               🗑️ Alle Karten löschen
             </button>
