@@ -70,7 +70,7 @@ export default function TagFilter({
         {selectedTags.length > 0 && (
           <button
             onClick={() => onTagsChange([])}
-            className="px-3 py-1 text-xs text-gray-700 transition-colors bg-gray-200 rounded-full hover:bg-gray-300"
+            className="px-3 py-1 text-xs text-gray-700 transition-colors bg-gray-200 rounded-full cursor-pointer hover:bg-gray-300"
           >
             ❌ Filter löschen
           </button>
@@ -88,7 +88,7 @@ export default function TagFilter({
               {tag}
               <button
                 onClick={() => toggleTag(tag)}
-                className="hover:bg-blue-600 rounded-full p-0.5 transition-colors"
+                className="hover:bg-blue-600 cursor-pointer rounded-full p-0.5 transition-colors"
               >
                 <X size={14} />
               </button>
@@ -102,7 +102,7 @@ export default function TagFilter({
         {/* Dropdown Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-between w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg hover:border-blue-500 focus:outline-none focus:border-blue-500"
+          className="flex items-center justify-between w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 focus:outline-none focus:border-blue-500"
         >
           <span className="text-gray-700">
             {selectedTags.length > 0

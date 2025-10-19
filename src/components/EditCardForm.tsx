@@ -32,7 +32,7 @@ export default function EditCardForm({
         </h3>
         <button
           onClick={onCancel}
-          className="p-1 transition-colors rounded hover:bg-gray-100"
+          className="p-1 transition-colors rounded cursor-pointer hover:bg-gray-100"
           title="Abbrechen"
         >
           <X
@@ -82,7 +82,7 @@ export default function EditCardForm({
           {/* Save Button */}
           <button
             type="submit"
-            className="flex-1 px-4 py-3 font-semibold text-white transition-all transform rounded-lg bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 hover:scale-105 active:scale-95"
+            className="flex-1 px-4 py-3 font-semibold text-white transition-all transform rounded-lg cursor-pointer bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 hover:scale-105 active:scale-95"
           >
             💾 Speichern
           </button>
@@ -91,7 +91,7 @@ export default function EditCardForm({
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 px-4 py-3 font-semibold text-gray-700 transition-colors bg-gray-300 rounded-lg hover:bg-gray-400"
+            className="flex-1 px-4 py-3 font-semibold text-gray-700 transition-colors bg-gray-300 rounded-lg cursor-pointer hover:bg-gray-400"
           >
             ❌ Abbrechen
           </button>

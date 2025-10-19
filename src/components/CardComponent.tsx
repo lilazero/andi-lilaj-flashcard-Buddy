@@ -70,7 +70,7 @@ export function CardComponent({
             <button
               onClick={() => onToggleAnswer(card.id)}
               disabled={isLoading}
-              className={`flex-1 px-4 py-2 rounded-lg font-semibold transition-colors min-w-[120px] ${
+              className={`flex-1 px-4 py-2 rounded-lg cursor-pointer font-semibold transition-colors min-w-[120px] ${
                 isLoading
                   ? "bg-gray-300 text-gray-700 cursor-not-allowed"
                   : card.showAnswer
@@ -87,7 +87,7 @@ export function CardComponent({
             {/* EditButton */}
             <button
               onClick={() => setIsEditing(true)}
-              className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-purple-500 rounded-lg hover:bg-purple-600"
+              className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-purple-500 rounded-lg cursor-pointer hover:bg-purple-600"
             >
               <Edit size={18} /> {/* edit icon */}
               <span>Bearbeiten</span>
@@ -104,7 +104,7 @@ export function CardComponent({
                   onDelete(card.id);
                 }
               }}
-              className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
+              className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-red-500 rounded-lg cursor-pointer hover:bg-red-600"
             >
               <Trash2 size={18} />
               <span>Löschen</span>

@@ -258,7 +258,7 @@ export default function FlashcardBuddy() {
             onClick={() => {
               deleteAllCards();
             }}
-            className="px-6 py-3 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
+            className="px-6 py-3 font-semibold text-white transition-colors bg-red-500 rounded-lg cursor-pointer hover:bg-red-600"
           >
             🗑️ Alle Karten löschen
           </button>
