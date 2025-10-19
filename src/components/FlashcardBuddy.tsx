@@ -2,6 +2,7 @@
 
 import AddCardForm from "./AddCardForm";
 import { Card, CardComponent } from "./CardComponent";
+import TagFilter from "./TagFilter";
 import { useState, useEffect, useRef } from "react";
 
 const STORAGE_KEY = "flashcard_buddy_cards";
@@ -9,6 +10,7 @@ const STORAGE_KEY = "flashcard_buddy_cards";
 export default function FlashcardBuddy() {
   const [cards, setCards] = useState<Card[]>([]);
   const [loadingCardId, setLoadingCardId] = useState<string | null>(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const toggleAnswer = (id: string): void => {
     console.log(`[toggleAnswer] Attempt to fetch card with id: ${id}...`);
@@ -26,7 +28,7 @@ export default function FlashcardBuddy() {
     }, 200);
   };
 
-  const addCard = (front: string, back: string): void => {
+  const addCard = (front: string, back: string, tags: string[]): void => {
     // Validierung
     // cuz with !front and !back it was possible to add whitespace cards
     if (front.trim() === "" || back.trim() === "") {
@@ -42,8 +44,7 @@ export default function FlashcardBuddy() {
       front,
       back,
       showAnswer: false,
-      // TODO: implement tags later
-      // TODO: dont forget trimming, undercasing etc, dupinglicates etc
+      tags: tags,
     };
     setCards([...cards, newCard]);
   };
@@ -136,6 +137,47 @@ export default function FlashcardBuddy() {
     }
   };
 
+  /**
+   * fetch alle einzigartigen Tags aus den Karten
+   */
+  const getAllTags = (): string[] => {
+    const tagSet = new Set<string>();
+    cards.forEach((card) => {
+      card.tags.forEach((tag) => {
+        tagSet.add(tag);
+      });
+    });
+    return Array.from(tagSet).sort();
+  };
+
+  /**
+   * Zähle wie viele Karten jeden Tag hat
+   * - Gibt ein Object mit Tag-Namen als Keys und Kartenzahl als Values
+   */
+  const getTagCounts = (): Record<string, number> => {
+    const counts: Record<string, number> = {};
+    cards.forEach((card) => {
+      card.tags.forEach((tag) => {
+        counts[tag] = (counts[tag] || 0) + 1;
+      });
+    });
+    return counts;
+  };
+
+  /**
+   * Filtere Karten basierend auf ausgewählten Tags
+   * - Wenn keine Tags ausgewählt: alle Karten anzeigen
+   * - Wenn Tags ausgewählt: nur Karten mit mind. einem dieser Tags anzeigen
+   */
+  const getFilteredCards = (): Card[] => {
+    if (selectedTags.length === 0) {
+      return cards;
+    }
+    return cards.filter((card) =>
+      card.tags.some((tag) => selectedTags.includes(tag))
+    );
+  };
+
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="max-w-2xl mx-auto">
@@ -168,43 +210,45 @@ export default function FlashcardBuddy() {
         {/* Tag Filter , nur anzeigen wenn es karten gibt, oder auch ein search dass durch alles sucht,
          */}
         {/* <TagFilter> und oder <SearchBar /> */}
+        {cards.length > 0 && getAllTags().length > 0 && (
+          <TagFilter
+            allTags={getAllTags()}
+            tagCounts={getTagCounts()}
+            selectedTags={selectedTags}
+            onTagsChange={setSelectedTags}
+          />
+        )}
 
         {/* Card List or Empty State or there wont be the opportunity for an Empty State
          */}
 
+        {/* Card List or Empty State */}
         <div className="space-y-4">
-          {/* Empty State */}
-          {/* The condition 'cards.length <= 0' which should be filter.length? is redundant since it's
-          already inside an else block where 'cards.length === 0' is false. 
-          This condition will never be true and creates unreachable code. 
-          BUT I will leave it in case some reset filter logic or something else
-          doesn't work. 
-          Better safe than sorry. -someone who's been sorry a lot of times
-          */}
           {cards.length === 0 ? (
             <div className="p-8 text-center bg-white rounded-lg shadow-md">
               <p className="mb-4 text-lg text-gray-600">
                 🎓 Noch keine Karten vorhanden. Füge deine erste Karte hinzu!
               </p>
             </div>
-          ) : /*Vielleicht werde ich das nicht verwenden, weil ich das Tag über ein Dropdown-Menü auswählen kann  */
-          cards.length <= 0 ? (
+          ) : getFilteredCards().length === 0 ? (
             <div className="p-8 text-center bg-white rounded-lg shadow-md">
               <p className="mb-4 text-lg text-gray-600">
                 🔍 Keine Karten mit diesen Tags gefunden.
               </p>
             </div>
           ) : (
-            cards.map((card) => (
-              <CardComponent
-                key={card.id}
-                card={card}
-                onToggleAnswer={toggleAnswer}
-                onEdit={updateCard}
-                isLoading={loadingCardId === card.id}
-                onDelete={deleteCard}
-              />
-            ))
+            <>
+              {getFilteredCards().map((card) => (
+                <CardComponent
+                  key={card.id}
+                  card={card}
+                  onToggleAnswer={toggleAnswer}
+                  onDelete={deleteCard}
+                  onEdit={updateCard}
+                  isLoading={loadingCardId === card.id}
+                />
+              ))}
+            </>
           )}
         </div>
 

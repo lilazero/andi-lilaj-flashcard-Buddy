@@ -2,18 +2,43 @@
 import { useState } from "react";
 
 interface AddCardFormProps {
-  onAddCard: (front: string, back: string) => void;
+  onAddCard: (front: string, back: string, tags: string[]) => void;
 }
+
+/**
+ * Parse komma-getrennte Tags in ein Array
+ * - Entfernt Duplikate
+ * - Trimmt Whitespace
+ * - Filtert leere Werte
+ */
+const parseTags = (input: string): string[] => {
+  const tagSet = new Set<string>();
+  input
+    .split(",")
+    .map((tag) => tag.trim().toLowerCase()) // lowercase für Vergleich
+    .filter((tag) => tag.length > 0)
+    .forEach((tag) => tagSet.add(tag));
+  return Array.from(tagSet);
+};
 
 export default function AddCardForm({ onAddCard }: AddCardFormProps) {
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
+  const [tagsInput, setTagsInput] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAddCard(front, back);
+    const tags = parseTags(tagsInput);
+    console.log(
+      `[AddCardForm] Neue Karte wird hinzugefügt: "${front}" <~~~~> "${back}" mit Tags: ${JSON.stringify(
+        tags
+      )}`
+    );
+    onAddCard(front, back, tags);
     setFront("");
     setBack("");
+    setTagsInput("");
+    console.log("[AddCardForm] Formular emptied");
   };
 
   return (
@@ -51,6 +76,35 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
             className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
           />
         </label>
+      </div>
+      {/* Tags Input */}
+      <div>
+        <label
+          htmlFor="tags"
+          className="block mb-2 text-sm font-semibold text-gray-700"
+        >
+          🏷️ Tags (komma-getrennt, optional)
+        </label>
+        <input
+          id="tags"
+          type="text"
+          value={tagsInput}
+          onChange={(e) => setTagsInput(e.target.value)}
+          placeholder="z.B. 'HTML, Web, Anfänger' (optional)"
+          className="w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+        />
+        {tagsInput && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {parseTags(tagsInput).map((tag, idx) => (
+              <span
+                key={idx}
+                className="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
       <button
         type="submit"

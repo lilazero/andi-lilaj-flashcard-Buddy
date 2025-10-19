@@ -10,6 +10,7 @@ export interface Card {
   front: string;
   back: string;
   showAnswer: boolean;
+  tags: string[];
 }
 
 export interface CardComponentProps {
