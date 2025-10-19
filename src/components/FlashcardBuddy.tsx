@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "sonner";
 import AddCardForm from "./AddCardForm";
 import { Card, CardComponent } from "./CardComponent";
 import TagFilter from "./TagFilter";
@@ -32,9 +33,7 @@ export default function FlashcardBuddy() {
     // Validierung
     // cuz with !front and !back it was possible to add whitespace cards
     if (front.trim() === "" || back.trim() === "") {
-      alert(
-        "Bitte füllen Sie sowohl die Vorder- als auch die Rückseite der Karte aus."
-      );
+      toast.error("Bitte fülle Frage und Antwort aus!");
       return;
     }
 
@@ -104,7 +103,7 @@ export default function FlashcardBuddy() {
   /* Save to Storage side-effect function*/
   // Speichern der Karten in localStorage bei jeder Änderung
   // Using useRef to skip initial save on component mount. overkill
-  // ! if it breaks again use useEffects saveToStorage(cards) without any conditions
+  // FIXME:and it saves everything every time a card is changed which is not optimal
   const isInitialLoad = useRef(true);
 
   useEffect(() => {
@@ -126,20 +125,34 @@ export default function FlashcardBuddy() {
         card.id === id ? { ...card, front, back, tags } : card
       )
     );
+    toast.success("Karte erfolgreich aktualisiert!");
+    console.log(`[updateCard] Karte mit der ID ${id} wurde aktualisiert.`);
   };
 
+  /**
+   * Removes a flashcard with the specified id from the local cards state.
+   *
+   * Updates state by creating a new array that excludes any card whose `id`
+   * matches the provided `id`. If no matching card is found, the state is left unchanged.
+   *
+   * @param id - The identifier of the card to remove.
+   * @returns void
+   */
   const deleteCard = (id: string): void => {
     setCards(cards.filter((card) => card.id !== id));
+    toast.warning("Karte wurde gelöscht!");
+    console.log(`[deleteCard] Karte mit der ID ${id} wurde gelöscht.`);
   };
 
   const deleteAllCards = (): void => {
     if (cards.length === 0) {
-      alert("Es gibt keine Karten zum Löschen!");
+      toast.error("Es gibt keine Karten zu löschen!");
       return;
     }
 
     if (confirm(`Möchtest du wirklich alle ${cards.length} Karten löschen?`)) {
       setCards([]);
+      toast.warning("Alle Karten wurden gelöscht!");
       console.log("[deleteAllCards] Alle Karten wurden gelöscht");
     }
   };

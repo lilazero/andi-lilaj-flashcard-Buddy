@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface AddCardFormProps {
   onAddCard: (front: string, back: string, tags: string[]) => void;
@@ -38,6 +39,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
     setFront("");
     setBack("");
     setTagsInput("");
+    toast.success("Karte erfolgreich hinzugefügt!");
     console.log("[AddCardForm] Formular emptied");
   };
 
