@@ -124,6 +124,18 @@ export default function FlashcardBuddy() {
     setCards(cards.filter((card) => card.id !== id));
   };
 
+  const deleteAllCards = (): void => {
+    if (cards.length === 0) {
+      alert("Es gibt keine Karten zum Löschen!");
+      return;
+    }
+
+    if (confirm(`Möchtest du wirklich alle ${cards.length} Karten löschen?`)) {
+      setCards([]);
+      console.log("[deleteAllCards] Alle Karten wurden gelöscht");
+    }
+  };
+
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="max-w-2xl mx-auto">
@@ -200,13 +212,7 @@ export default function FlashcardBuddy() {
         <div className="mt-8 text-center">
           <button
             onClick={() => {
-              if (cards.length > 0) {
-                if (confirm("Möchten Sie wirklich alle Karten löschen?")) {
-                  setCards([]);
-                }
-              } else {
-                alert("Es gibt keine Karten zum Löschen vorhanden.");
-              }
+              deleteAllCards();
             }}
             className="px-6 py-3 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
           >
