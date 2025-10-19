@@ -46,13 +46,13 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
       onSubmit={handleSubmit}
       //so much for tailwind's utility first approach
       // * research how to make tailwind classes from tailwind classes that are made from css classes that are made from c++
-      className="bg-white rounded-lg shadow-md p-6 mb-8"
+      className="p-6 mb-8 bg-white rounded-lg shadow-md"
     >
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
+      <h2 className="mb-6 text-2xl font-bold text-gray-800">
         ➕ Neue Karte hinzufügen
       </h2>
       <div className="space-y-4">
-        <label className="block text-sm font-semibold text-gray-700 mb-2 cursor-pointer">
+        <label className="block mb-2 text-sm font-semibold text-gray-700 cursor-pointer">
           📄 Vorseite:
           <input
             id="front"
@@ -60,12 +60,12 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
             value={front}
             onChange={(e) => setFront(e.target.value)}
             placeholder="Gib eine Frage ein (z.B. 'Was ist HTML?')"
-            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </label>
       </div>
       <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-2 cursor-pointer">
+        <label className="block mb-2 text-sm font-semibold text-gray-700 cursor-pointer">
           📲 Rückseite:
           <input
             id="back"
@@ -73,7 +73,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
             value={back}
             onChange={(e) => setBack(e.target.value)}
             placeholder="Gib die Antwort ein (z.B. 'HyperText Markup Language')"
-            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors"
+            className="w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </label>
       </div>
@@ -108,7 +108,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
       </div>
       <button
         type="submit"
-        className="w-full px-4 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-indigo-700 transition-all transform hover:scale-105 active:scale-95"
+        className="w-full px-4 py-3 font-semibold text-white transition-all transform rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 hover:scale-105 active:scale-95"
       >
         ✨ Karte hinzufügen
       </button>
