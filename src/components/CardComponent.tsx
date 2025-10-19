@@ -29,6 +29,7 @@ export function CardComponent({
   onDelete,
 }: CardComponentProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [tagsInput, setTagsInput] = useState<string>(card.tags.join(", "));
 
   const handleEdit = (front: string, back: string): void => {
     onEdit(card.id, front, back);
@@ -44,6 +45,13 @@ export function CardComponent({
       />
     );
   }
+
+  const parseTags = (input: string): string[] => {
+    return input
+      .split(",")
+      .map((tag) => tag.trim().toLowerCase())
+      .filter((tag) => tag.length > 0);
+  };
 
   return (
     <>
@@ -96,12 +104,25 @@ export function CardComponent({
                   onDelete(card.id);
                 }
               }}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors flex items-center gap-2"
+              className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
             >
               <Trash2 size={18} />
               <span>Löschen</span>
             </button>
           </div>
+
+          {tagsInput && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {parseTags(tagsInput).map((tag, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
