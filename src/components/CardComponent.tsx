@@ -16,7 +16,7 @@ export interface Card {
 export interface CardComponentProps {
   card: Card;
   onToggleAnswer: (id: string) => void;
-  onEdit: (id: string, front: string, back: string) => void;
+  onEdit: (id: string, front: string, back: string, tags: string[]) => void;
   isLoading: boolean;
   onDelete: (id: string) => void;
 }
@@ -31,8 +31,8 @@ export function CardComponent({
   const [isEditing, setIsEditing] = useState(false);
   const [tagsInput, setTagsInput] = useState<string>(card.tags.join(", "));
 
-  const handleEdit = (front: string, back: string): void => {
-    onEdit(card.id, front, back);
+  const handleEdit = (front: string, back: string, tags: string[]): void => {
+    onEdit(card.id, front, back, tags);
     setIsEditing(false);
   };
 
@@ -45,13 +45,6 @@ export function CardComponent({
       />
     );
   }
-
-  const parseTags = (input: string): string[] => {
-    return input
-      .split(",")
-      .map((tag) => tag.trim().toLowerCase())
-      .filter((tag) => tag.length > 0);
-  };
 
   return (
     <>
@@ -110,10 +103,10 @@ export function CardComponent({
               <span>Löschen</span>
             </button>
           </div>
-
-          {tagsInput && (
+          {/* Tags Display*/}
+          {card.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-2">
-              {parseTags(tagsInput).map((tag, idx) => (
+              {card.tags.map((tag, idx) => (
                 <span
                   key={idx}
                   className="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full"

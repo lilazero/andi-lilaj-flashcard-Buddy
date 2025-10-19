@@ -115,9 +115,16 @@ export default function FlashcardBuddy() {
     saveToStorage(cards);
   }, [cards]);
 
-  const updateCard = (id: string, front: string, back: string): void => {
+  const updateCard = (
+    id: string,
+    front: string,
+    back: string,
+    tags: string[]
+  ): void => {
     setCards(
-      cards.map((card) => (card.id === id ? { ...card, front, back } : card))
+      cards.map((card) =>
+        card.id === id ? { ...card, front, back, tags } : card
+      )
     );
   };
 
