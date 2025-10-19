@@ -214,9 +214,7 @@ export default function FlashcardBuddy() {
           )}
         </div>
 
-        {/* Tag Filter , nur anzeigen wenn es karten gibt, oder auch ein search dass durch alles sucht,
-         */}
-        {/* <TagFilter> und oder <SearchBar /> */}
+        {/* Card Filter*/}
         {cards.length > 0 && getAllTags().length > 0 && (
           <TagFilter
             allTags={getAllTags()}
