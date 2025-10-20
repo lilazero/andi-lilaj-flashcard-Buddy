@@ -45,6 +45,7 @@ export default function FlashcardBuddy() {
       showAnswer: false,
       tags: tags,
     };
+    toast.success("Karte erfolgreich hinzugefügt!");
     setCards([...cards, newCard]);
   };
 
