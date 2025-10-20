@@ -14,6 +14,7 @@ export default function FlashcardBuddy() {
   const [loadingCardId, setLoadingCardId] = useState<string | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [includeAllTags, setIncludeAllTags] = useState<boolean>(false);
 
   const toggleAnswer = (id: string): void => {
     console.log(`[toggleAnswer] Attempt to fetch card with id: ${id}...`);
@@ -193,13 +194,20 @@ export default function FlashcardBuddy() {
    * - Wenn Tags ausgewählt: nur Karten mit mind. einem dieser Tags anzeigen
    */
   const getFilteredCards = (): Card[] => {
+    // Step 1: Tag filtering
     const byTags =
       selectedTags.length === 0
         ? cards
-        : cards.filter((card) =>
-            card.tags.some((tag) => selectedTags.includes(tag))
-          );
-    // Step 2: Text search across front/back/tags
+        : cards.filter((card) => {
+            if (includeAllTags) {
+              // every selected tag must be present on the card
+              return selectedTags.every((tag) => card.tags.includes(tag));
+            }
+            // at least one selected tag matches
+            return card.tags.some((tag) => selectedTags.includes(tag));
+          });
+
+    // Step 2: Text search across front/back
     const q = searchQuery.trim().toLowerCase();
     if (!q) return byTags;
     return byTags.filter((card) => {
@@ -254,6 +262,8 @@ export default function FlashcardBuddy() {
               tagCounts={getTagCounts()}
               selectedTags={selectedTags}
               onTagsChange={setSelectedTags}
+              includeAllTags={includeAllTags}
+              onIncludeAllChange={setIncludeAllTags}
             />
           )}
         </div>

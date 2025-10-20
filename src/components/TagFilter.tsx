@@ -8,6 +8,8 @@ interface TagFilterProps {
   tagCounts: Record<string, number>;
   selectedTags: string[];
   onTagsChange: (tags: string[]) => void;
+  includeAllTags?: boolean;
+  onIncludeAllChange?: (value: boolean) => void;
 }
 
 /**
@@ -21,6 +23,8 @@ export default function TagFilter({
   tagCounts,
   selectedTags,
   onTagsChange,
+  includeAllTags = false,
+  onIncludeAllChange,
 }: TagFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setTagSearchInput] = useState("");
@@ -169,6 +173,19 @@ export default function TagFilter({
             </div>
           </div>
         )}
+      </div>
+      {/* Include all tags toggle */}
+      <div className="flex items-center gap-2 mt-4">
+        <input
+          id="include-all-tags"
+          type="checkbox"
+          className="w-4 h-4 text-blue-500 border-gray-300 rounded cursor-pointer"
+          checked={includeAllTags}
+          onChange={(e) => onIncludeAllChange?.(e.target.checked)}
+        />
+        <label htmlFor="include-all-tags" className="text-sm text-gray-700">
+          Alle ausgewählten Tags müssen enthalten sein
+        </label>
       </div>
 
       {/* Info Text */}
