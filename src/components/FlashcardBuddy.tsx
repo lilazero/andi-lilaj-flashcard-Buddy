@@ -5,6 +5,7 @@ import AddCardForm from "./AddCardForm";
 import { Card, CardComponent } from "./CardComponent";
 import TagFilter from "./TagFilter";
 import { useState, useEffect, useRef } from "react";
+import SearchBar from "./SearchBar";
 
 const STORAGE_KEY = "flashcard_buddy_cards";
 
@@ -12,6 +13,7 @@ export default function FlashcardBuddy() {
   const [cards, setCards] = useState<Card[]>([]);
   const [loadingCardId, setLoadingCardId] = useState<string | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const toggleAnswer = (id: string): void => {
     console.log(`[toggleAnswer] Attempt to fetch card with id: ${id}...`);
@@ -191,17 +193,25 @@ export default function FlashcardBuddy() {
    * - Wenn Tags ausgewählt: nur Karten mit mind. einem dieser Tags anzeigen
    */
   const getFilteredCards = (): Card[] => {
-    if (selectedTags.length === 0) {
-      return cards;
-    }
-    return cards.filter((card) =>
-      card.tags.some((tag) => selectedTags.includes(tag))
-    );
+    const byTags =
+      selectedTags.length === 0
+        ? cards
+        : cards.filter((card) =>
+            card.tags.some((tag) => selectedTags.includes(tag))
+          );
+    // Step 2: Text search across front/back/tags
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return byTags;
+    return byTags.filter((card) => {
+      const inFront = card.front.toLowerCase().includes(q);
+      const inBack = card.back.toLowerCase().includes(q);
+      return inFront || inBack;
+    });
   };
 
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="mb-2 text-4xl font-bold text-gray-800">
@@ -223,20 +233,30 @@ export default function FlashcardBuddy() {
               <span>
                 Du hast <strong>{cards.length}</strong> Karten
               </span>
-              <span className="ml-3">{/* (Y shown wegen Filtern) */}</span>
+              <span className="ml-3">
+                {selectedTags.length > 0
+                  ? `${selectedTags.length} durch Tags filtert`
+                  : "Keine Tags ausgewählt"}
+              </span>
             </>
           )}
         </div>
-
-        {/* Card Filter*/}
-        {cards.length > 0 && getAllTags().length > 0 && (
-          <TagFilter
-            allTags={getAllTags()}
-            tagCounts={getTagCounts()}
-            selectedTags={selectedTags}
-            onTagsChange={setSelectedTags}
-          />
-        )}
+        {/* Search and Tag Filter container */}
+        <div className="p-4 my-2 bg-white rounded-lg shadow-md">
+          {/* Search Bar */}
+          {cards.length > 0 && (
+            <SearchBar query={searchQuery} onQueryChange={setSearchQuery} />
+          )}
+          {/* Card Filter*/}
+          {cards.length > 0 && getAllTags().length > 0 && (
+            <TagFilter
+              allTags={getAllTags()}
+              tagCounts={getTagCounts()}
+              selectedTags={selectedTags}
+              onTagsChange={setSelectedTags}
+            />
+          )}
+        </div>
 
         {/* Card List or Empty State or there wont be the opportunity for an Empty State
          */}
@@ -250,7 +270,7 @@ export default function FlashcardBuddy() {
               </p>
             </div>
           ) : getFilteredCards().length === 0 ? (
-            <div className="p-8 text-center bg-white rounded-lg shadow-md">
+            <div className="flex justify-center items-center p-8 text-center bg-white rounded-lg shadow-md min-h-[238px]">
               <p className="mb-4 text-lg text-gray-600">
                 🔍 Keine Karten mit diesen Tags gefunden.
               </p>

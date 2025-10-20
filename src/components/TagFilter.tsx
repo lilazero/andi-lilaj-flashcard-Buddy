@@ -23,7 +23,7 @@ export default function TagFilter({
   onTagsChange,
 }: TagFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setTagSearchInput] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   /**
@@ -62,11 +62,15 @@ export default function TagFilter({
   }, []);
 
   return (
-    <div className="p-6 mb-8 bg-white rounded-lg shadow-md">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-bold text-gray-800">
+    <div>
+      {/* Das Div lösche ich immer wieder, aber dieses hält den Filter auf der rechten Seite*/}
+      <div className="flex items-center justify-between mt-4 mb-1 min-h-3">
+        <button
+          className="text-lg font-bold text-gray-800 cursor-pointer"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           🏷️ Nach Tags filtern
-        </h3>
+        </button>
         {selectedTags.length > 0 && (
           <button
             onClick={() => onTagsChange([])}
@@ -78,24 +82,27 @@ export default function TagFilter({
       </div>
 
       {/* Selected Tags Display */}
-      {selectedTags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {selectedTags.map((tag) => (
-            <div
-              key={tag}
-              className="flex items-center gap-2 px-3 py-1 text-sm font-semibold text-white bg-blue-500 rounded-full"
-            >
-              {tag}
-              <button
-                onClick={() => toggleTag(tag)}
-                className="hover:bg-blue-600 cursor-pointer rounded-full p-0.5 transition-colors"
+      {/* dont change the heights or the margins or paddings because they finally stoped moving when i put tags on the selected tag holder*/}
+      <div className="mb-2 min-h-[32px]">
+        {selectedTags.length > 0 && (
+          <div className="flex flex-wrap gap-2 ">
+            {selectedTags.map((tag) => (
+              <div
+                key={tag}
+                className="flex items-center gap-2 px-3 py-1 text-sm font-semibold text-white bg-blue-500 rounded-full"
               >
-                <X size={14} />
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+                {tag}
+                <button
+                  onClick={() => toggleTag(tag)}
+                  className="hover:bg-blue-600 cursor-pointer rounded-full p-0.5 transition-colors"
+                >
+                  <X size={14} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* Dropdown */}
       <div className="relative" ref={dropdownRef}>
@@ -120,13 +127,13 @@ export default function TagFilter({
         {/* Dropdown Menu */}
         {isOpen && (
           <div className="absolute left-0 right-0 z-50 mt-2 bg-white border-2 border-gray-300 rounded-lg shadow-lg top-full">
-            {/* Search Input */}
+            {/* Tag Search Input */}
             <div className="p-3 border-b border-gray-200">
               <input
                 type="text"
                 placeholder="🔍 Tags durchsuchen..."
                 value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
+                onChange={(e) => setTagSearchInput(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 autoFocus
               />
