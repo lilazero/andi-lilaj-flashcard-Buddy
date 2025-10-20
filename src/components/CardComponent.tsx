@@ -29,7 +29,6 @@ export function CardComponent({
   onDelete,
 }: CardComponentProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [tagsInput, setTagsInput] = useState<string>(card.tags.join(", "));
 
   const handleEdit = (front: string, back: string, tags: string[]): void => {
     onEdit(card.id, front, back, tags);
