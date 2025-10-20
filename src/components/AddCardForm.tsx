@@ -80,7 +80,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
         </label>
       </div>
       {/* Tags Input */}
-      <div>
+      <>
         <label
           htmlFor="tags"
           className="block mb-2 text-sm font-semibold text-gray-700"
@@ -95,19 +95,22 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
           placeholder="z.B. 'HTML, Web, Anfänger' (optional)"
           className="w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
         />
-        {tagsInput && (
-          <div className="flex flex-wrap gap-2 mt-2">
-            {parseTags(tagsInput).map((tag, idx) => (
-              <span
-                key={idx}
-                className="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
+        {/* Tag Preview */}
+        <div className="flex flex-wrap h-5 gap-2 mt-2">
+          {tagsInput && (
+            <>
+              {parseTags(tagsInput).map((tag, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </>
+          )}
+        </div>
+      </>
       <button
         type="submit"
         className="w-full px-4 py-3 mt-3 font-semibold text-white transition-all transform rounded-lg cursor-pointer bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 hover:scale-105 active:scale-95"
