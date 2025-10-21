@@ -131,6 +131,18 @@ export function CardComponent({
               </div>
             )}
           </div>
+          {card.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {card.tags.map((tag, idx) => (
+                <span
+                  key={idx}
+                  className="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
