@@ -26,7 +26,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
   const [front, setFront] = useState("");
   const [back, setBack] = useState("");
   const [tagsInput, setTagsInput] = useState<string>("");
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +42,6 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
     setBack("");
     setTagsInput("");
     console.log("[AddCardForm] Formular emptied");
-    setIsOpen(false);
   };
 
   return (
