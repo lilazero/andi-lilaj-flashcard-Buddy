@@ -1,6 +1,6 @@
 "use client";
 
-import { Edit, Trash2 } from "lucide-react";
+import { Trash2, Edit, Check, X } from "lucide-react";
 import { useState } from "react";
 import EditCardForm from "./EditCardForm";
 
@@ -29,10 +29,24 @@ export function CardComponent({
   onDelete,
 }: CardComponentProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
 
   const handleEdit = (front: string, back: string, tags: string[]): void => {
     onEdit(card.id, front, back, tags);
     setIsEditing(false);
+  };
+
+  const handleDeleteClick = (): void => {
+    setIsConfirmingDelete(true);
+  };
+
+  const handleConfirmDelete = (): void => {
+    onDelete(card.id);
+    setIsConfirmingDelete(false);
+  };
+
+  const handleCancelDelete = (): void => {
+    setIsConfirmingDelete(false);
   };
 
   if (isEditing) {
@@ -84,37 +98,39 @@ export function CardComponent({
               <Edit size={18} /> {/* edit icon */}
               <span>Bearbeiten</span>
             </button>
-            {/* DeleteButton */}
 
-            <button
-              onClick={() => {
-                if (
-                  confirm(
-                    `Möchtest du diese Karte wirklich löschen?\n\n"${card.front}"`
-                  )
-                ) {
-                  onDelete(card.id);
-                }
-              }}
-              className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-red-500 rounded-lg cursor-pointer hover:bg-red-600"
-            >
-              <Trash2 size={18} />
-              <span>Löschen</span>
-            </button>
-          </div>
-          {/* Tags Display*/}
-          {card.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {card.tags.map((tag, idx) => (
-                <span
-                  key={idx}
-                  className="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full"
+            {/* Delete Button - shows confirm/cancel when clicked */}
+            {!isConfirmingDelete ? (
+              <button
+                onClick={handleDeleteClick}
+                className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
+              >
+                <Trash2 size={18} />
+                <span>Löschen</span>
+              </button>
+            ) : (
+              <div className="flex gap-2">
+                {/* Confirm Delete */}
+                <button
+                  onClick={handleConfirmDelete}
+                  className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-green-500 rounded-lg hover:bg-green-600"
+                  title="Löschen bestätigen"
                 >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+                  <Check size={18} />
+                  <span>Bestätigen</span>
+                </button>
+                {/* Cancel Delete */}
+                <button
+                  onClick={handleCancelDelete}
+                  className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-gray-500 rounded-lg hover:bg-gray-600"
+                  title="Abbrechen"
+                >
+                  <X size={18} />
+                  <span>Abbrechen</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
