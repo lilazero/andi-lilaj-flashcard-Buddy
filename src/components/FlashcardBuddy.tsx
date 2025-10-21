@@ -90,7 +90,9 @@ export default function FlashcardBuddy() {
   /*  Save To Storage function */
   const saveToStorage = (cardsToSave: Card[]): void => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsToSave));
+      // Remove showAnswer property before saving (it's just UI state)
+      const cardsToStore = cardsToSave.map(({ showAnswer, ...card }) => card);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cardsToStore));
       console.log(
         `[saveToStorage] ${cardsToSave.length} Cards saved to localStorage.`
       );
