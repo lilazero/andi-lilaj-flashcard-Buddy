@@ -6,6 +6,7 @@ import { Card, CardComponent } from "./CardComponent";
 import TagFilter from "./TagFilter";
 import { useState, useEffect, useRef } from "react";
 import SearchBar from "./SearchBar";
+import { ModeToggle } from "./theme-button";
 
 const STORAGE_KEY = "flashcard_buddy_cards";
 
@@ -216,6 +217,9 @@ export default function FlashcardBuddy() {
 
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="mb-4 absolute">
+        <ModeToggle />
+      </div>
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
