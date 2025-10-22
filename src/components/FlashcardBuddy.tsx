@@ -6,6 +6,7 @@ import { Card, CardComponent } from "./CardComponent";
 import TagFilter from "./TagFilter";
 import { useState, useEffect, useRef } from "react";
 import SearchBar from "./SearchBar";
+import { ModeToggle } from "./theme-button";
 
 const STORAGE_KEY = "flashcard_buddy_cards";
 
@@ -215,14 +216,15 @@ export default function FlashcardBuddy() {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen p-6 bg-background">
+      <div className="absolute mb-4">
+        <ModeToggle />
+      </div>
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="mb-2 text-4xl font-bold text-gray-800">
-            📚 Flashcard Buddy
-          </h1>
-          <p className="text-gray-600">
+          <h1 className="mb-2 text-4xl font-bold">📚 Flashcard Buddy</h1>
+          <p className="text-muted-foreground">
             Lerne effektiv mit digitalen Karteikarten
           </p>
         </div>
@@ -231,7 +233,7 @@ export default function FlashcardBuddy() {
         <AddCardForm onAddCard={addCard} />
 
         {/* Card Count and Info */}
-        <div className="mb-6 text-sm text-center text-gray-600">
+        <div className="mb-6 text-sm text-center">
           {cards.length > 0 && (
             <>
               {/* Etwas wie 🔎 Du hast X Karten dann ob es gibt ein filter (Y mit Filtern angezeigt) */}
@@ -247,7 +249,7 @@ export default function FlashcardBuddy() {
           )}
         </div>
         {/* Search and Tag Filter container */}
-        <div className="p-4 my-2 bg-white rounded-lg shadow-md">
+        <div className="p-4 my-2 rounded-lg bg-[var(--color-card)] text-[var(--color-card-foreground)] card">
           {/* Search Bar */}
           {cards.length > 0 && (
             <SearchBar query={searchQuery} onQueryChange={setSearchQuery} />
@@ -273,14 +275,14 @@ export default function FlashcardBuddy() {
         <div className="h-[800px] overflow-y-auto pr-3">
           <div className="space-y-4">
             {cards.length === 0 ? (
-              <div className="p-8 text-center bg-white rounded-lg shadow-md">
-                <p className="mb-4 text-lg text-gray-600">
+              <div className="p-8 text-center rounded-lg shadow-md bg-card">
+                <p className="mb-4 text-lg text-muted-foreground">
                   🎓 Noch keine Karten vorhanden. Füge deine erste Karte hinzu!
                 </p>
               </div>
             ) : getFilteredCards().length === 0 ? (
-              <div className="flex justify-center items-center p-8 text-center bg-white rounded-lg shadow-md min-h-[238px]">
-                <p className="mb-4 text-lg text-gray-600">
+              <div className="flex justify-center items-center p-8 text-center bg-card rounded-lg shadow-md min-h-[238px]">
+                <p className="mb-4 text-lg text-muted-foreground">
                   🔍 Keine Karten mit diesen Tags gefunden.
                 </p>
               </div>
@@ -307,7 +309,7 @@ export default function FlashcardBuddy() {
             onClick={() => {
               deleteAllCards();
             }}
-            className="px-6 py-3 font-semibold text-white transition-colors bg-red-500 rounded-lg cursor-pointer hover:bg-red-600"
+            className="px-6 py-3 font-semibold text-white transition-colors rounded-lg cursor-pointer bg-destructive hover:bg-destructive/90"
           >
             🗑️ Alle Karten löschen
           </button>

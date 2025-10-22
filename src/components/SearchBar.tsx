@@ -18,7 +18,7 @@ export default function SearchBar({ query, onQueryChange }: SearchBarProps) {
         document.getElementById(inputId)?.focus();
       }}
     >
-      <label className="block py-2 text-sm font-semibold text-gray-700 cursor-pointer">
+      <label className="block py-2 text-sm font-semibold cursor-pointer text-foreground">
         🔎 Suche in Karten (Frage, Antwort, Tags)
       </label>
       <input
@@ -27,7 +27,7 @@ export default function SearchBar({ query, onQueryChange }: SearchBarProps) {
         value={query}
         onChange={(e) => onQueryChange(e.target.value)}
         placeholder="Tippe, um zu suchen..."
-        className="w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+        className="w-full px-4 py-3 transition-colors rounded-lg "
       />
     </div>
   );

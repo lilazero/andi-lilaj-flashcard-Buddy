@@ -37,6 +37,16 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-edit-button: var(--edit-button);
+  --color-edit-button-foreground: var(--edit-button-foreground);
+  --color-show-button: var(--show-button);
+  --color-show-button-foreground: var(--show-button-foreground);
+  --color-hide-button: var(--hide-button);
+  --color-hide-button-foreground: var(--hide-button-foreground);
+  --color-tag-bg: var(--tag-bg);
+  --color-tag-text: var(--tag-text);
+  --color-edit-tag-bg: var(--edit-tag-bg);
+  --color-edit-tag-text: var(--edit-tag-text);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -45,9 +55,9 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.98 0.01 274.9);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --card: oklch(0.93 0.03 235.19);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -61,7 +71,8 @@
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --input: oklch(0.96 0.02 257.47);
+  --input-hover: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -76,12 +87,23 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --edit-button: oklch(0.58 0.54 285);
+  --edit-button-foreground: oklch(0.98 0 0);
+  --show-button: oklch(0.67 0.16 244.91);
+  --show-button-foreground: oklch(0.98 0 0);
+  --hide-button: oklch(0.64 0.19 65);
+  --hide-button-foreground: oklch(0.02 0 0);
+  --tag-bg: oklch(0.98 0.04 240);
+  --tag-text: oklch(0.4676 0.2541 263.65);
+  --edit-tag-bg: oklch(0.98 0.03 285);
+  --edit-tag-text: oklch(0.36 0.45 285);
+  --background-image: none;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #0d263d;
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: #1d2b41;
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
@@ -93,9 +115,10 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(0.43 0.14 25.27);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
+  --input-hover: #3b5066;
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
@@ -110,13 +133,47 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --edit-button: oklch(0.36 0.2 285);
+  --edit-button-foreground: oklch(0.985 0 0);
+  --show-button: oklch(0.38 0.18 240);
+  --show-button-foreground: oklch(0.985 0 0);
+  --hide-button: oklch(0.28 0.18 40);
+  --hide-button-foreground: oklch(0.985 0 0);
+  --tag-bg: oklch(0.31 0.06 240);
+  --tag-text: oklch(0.8941 0.04 229.76);
+  --edit-tag-bg: oklch(0.14 0.06 285);
+  --edit-tag-text: oklch(0.7267 0.2023 314.47);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  input,
+  textarea,
+  select {
+    @apply bg-input;
+    transition: background-color 120ms ease-in-out,
+      border-color 120ms ease-in-out;
+  }
+
+  input:hover,
+  textarea:hover,
+  select:hover {
+    background-color: var(--input-hover);
+  }
+
+  .dark input:focus,
+  .dark textarea:focus,
+  .dark select:focus {
+    outline: 2px solid #1e3a8a;
+    outline-offset: 0px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply border hover:border-edit-button;
   }
 }
