@@ -13,6 +13,10 @@ A flashcard application built with **Next.js 15**, **React 19**, **TypeScript**,
 - **Search & Filter** - Find cards quickly by content or tags
 - **Tag System** - Organize cards with custom tags
 
+### Screenshot
+![Screenshot_22-10-2025_1810_localhost](https://github.com/user-attachments/assets/5f00af15-5a42-419d-9c98-f43ef997aa8a)
+
+
 ## Getting Started
 
 ### Prerequisites
