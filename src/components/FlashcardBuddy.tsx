@@ -217,7 +217,7 @@ export default function FlashcardBuddy() {
 
   return (
     <div className="min-h-screen p-6 bg-background">
-      <div className="mb-4 absolute">
+      <div className="absolute mb-4">
         <ModeToggle />
       </div>
       <div className="max-w-4xl mx-auto">
@@ -249,7 +249,7 @@ export default function FlashcardBuddy() {
           )}
         </div>
         {/* Search and Tag Filter container */}
-        <div className="p-4 my-2 rounded-lg shadow-md bg-[var(--color-card)] text-[var(--color-card-foreground)]">
+        <div className="p-4 my-2 rounded-lg bg-[var(--color-card)] text-[var(--color-card-foreground)] card">
           {/* Search Bar */}
           {cards.length > 0 && (
             <SearchBar query={searchQuery} onQueryChange={setSearchQuery} />
@@ -275,7 +275,7 @@ export default function FlashcardBuddy() {
         <div className="h-[800px] overflow-y-auto pr-3">
           <div className="space-y-4">
             {cards.length === 0 ? (
-              <div className="p-8 text-center bg-card rounded-lg shadow-md">
+              <div className="p-8 text-center rounded-lg shadow-md bg-card">
                 <p className="mb-4 text-lg text-muted-foreground">
                   🎓 Noch keine Karten vorhanden. Füge deine erste Karte hinzu!
                 </p>
@@ -309,7 +309,7 @@ export default function FlashcardBuddy() {
             onClick={() => {
               deleteAllCards();
             }}
-            className="px-6 py-3 font-semibold text-white transition-colors bg-destructive rounded-lg cursor-pointer hover:bg-destructive/90"
+            className="px-6 py-3 font-semibold text-white transition-colors rounded-lg cursor-pointer bg-destructive hover:bg-destructive/90"
           >
             🗑️ Alle Karten löschen
           </button>

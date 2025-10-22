@@ -38,7 +38,7 @@ export default function EditCardForm({
   };
 
   return (
-    <div className="p-6 bg-card border-2 border-secondary rounded-lg shadow-lg">
+    <div className="p-6 border-2 rounded-lg shadow-lg bg-card border-secondary ">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-2xl font-bold text-foreground">
           ✏️ Karte bearbeiten
@@ -48,7 +48,7 @@ export default function EditCardForm({
           className="p-1 transition-colors rounded cursor-pointer hover:bg-input/10"
           title="Abbrechen"
         >
-          <X size={24} className="text-muted-foreground cursor-pointer" />
+          <X size={24} className="cursor-pointer text-muted-foreground" />
         </button>
       </div>
 
@@ -66,7 +66,7 @@ export default function EditCardForm({
             type="text"
             value={front}
             onChange={(e) => setFront(e.target.value)}
-            className="w-full px-4 py-3 transition-colors border-2 border-input rounded-lg focus:outline-none focus:border-secondary"
+            className="w-full px-4 py-3 transition-colors border-2 rounded-lg border-input focus:border-purple-500"
           />
         </div>
 
@@ -83,7 +83,7 @@ export default function EditCardForm({
             type="text"
             value={back}
             onChange={(e) => setBack(e.target.value)}
-            className="w-full px-4 py-3 transition-colors border-2 border-input rounded-lg focus:outline-none focus:border-secondary"
+            className="w-full px-4 py-3 transition-colors border-2 rounded-lg border-input focus:border-purple-500"
           />
         </div>
         {/* Tags Input */}
@@ -107,7 +107,7 @@ export default function EditCardForm({
               {parseTags(tagsInput).map((tag, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 text-xs font-semibold text-secondary-foreground bg-secondary rounded-full"
+                  className="px-3 py-1 text-xs font-semibold rounded-full text-edit-tag-text bg-edit-tag-bg"
                 >
                   {tag}
                 </span>
@@ -121,7 +121,7 @@ export default function EditCardForm({
           {/* Save Button */}
           <button
             type="submit"
-            className="flex-1 px-4 py-3 font-semibold text-primary-foreground transition-all transform rounded-lg cursor-pointer bg-primary hover:bg-primary/90 active:scale-95"
+            className="flex-1 px-4 py-3 font-semibold transition-all transform rounded-lg cursor-pointer text-edit-button-foreground bg-edit-button hover:bg-edit-button/90 active:scale-95"
           >
             💾 Speichern
           </button>
@@ -130,7 +130,7 @@ export default function EditCardForm({
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 px-4 py-3 font-semibold text-muted-foreground transition-colors bg-border rounded-lg cursor-pointer hover:bg-border/80"
+            className="flex-1 px-4 py-3 font-semibold transition-colors rounded-lg cursor-pointer text-muted-foreground bg-border hover:bg-border/80"
           >
             ❌ Abbrechen
           </button>

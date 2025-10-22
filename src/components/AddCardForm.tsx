@@ -45,7 +45,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
   };
 
   return (
-    <div className="mb-8 bg-card rounded-lg shadow-md">
+    <div className="mb-8 rounded-lg shadow-md bg-card card">
       {/* Collapsible Header */}
       <div
         onClick={() => setIsOpen(!isOpen)}
@@ -68,7 +68,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
       {isOpen && (
         <form onSubmit={handleSubmit} className="px-6 pb-6">
           <div className="pt-6 space-y-4 border-t border-gray-200">
-            <label className="block mb-2 text-sm font-semibold text-foreground cursor-pointer">
+            <label className="block mb-2 text-sm font-semibold cursor-pointer text-foreground">
               📄 Vorseite:
               <input
                 id="front"
@@ -76,12 +76,12 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
                 value={front}
                 onChange={(e) => setFront(e.target.value)}
                 placeholder="Gib eine Frage ein (z.B. 'Was ist HTML?')"
-                className="w-full px-4 py-3 transition-colors border-2 border-input rounded-lg focus:outline-none focus:border-accent"
+                className="w-full px-4 py-3 rounded-lg background-input "
               />
             </label>
           </div>
           <div>
-            <label className="block mb-2 text-sm font-semibold text-foreground cursor-pointer">
+            <label className="block mb-2 text-sm font-semibold cursor-pointer text-foreground">
               📲 Rückseite:
               <input
                 id="back"
@@ -89,7 +89,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
                 value={back}
                 onChange={(e) => setBack(e.target.value)}
                 placeholder="Gib die Antwort ein (z.B. 'HyperText Markup Language')"
-                className="w-full px-4 py-3 transition-colors border-2 border-input rounded-lg focus:outline-none focus:border-accent"
+                className="w-full px-4 py-3 rounded-lg "
               />
             </label>
           </div>
@@ -107,7 +107,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
               value={tagsInput}
               onChange={(e) => setTagsInput(e.target.value)}
               placeholder="z.B. 'HTML, Web, Anfänger' (optional)"
-              className="w-full px-4 py-3 transition-colors border-2 border-input rounded-lg focus:outline-none focus:border-accent"
+              className="w-full px-4 py-3 rounded-lg "
             />
             {/* Tag Preview */}
             <div className="flex flex-wrap h-5 gap-2 mt-2">
@@ -116,7 +116,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
                   {parseTags(tagsInput).map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 text-xs font-semibold text-accent-foreground bg-accent rounded-full"
+                      className="px-3 py-1 text-xs font-semibold rounded-full text-accent-foreground bg-accent"
                     >
                       {tag}
                     </span>
@@ -127,7 +127,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
           </>
           <button
             type="submit"
-            className="w-full px-4 py-3 mt-3 font-semibold text-primary-foreground transition-all transform rounded-lg cursor-pointer bg-primary hover:bg-primary/90 active:scale-95"
+            className="w-full px-4 py-3 mt-3 font-semibold transition-all transform rounded-lg cursor-pointer text-foreground bg-show-button hover:bg-primary/90 active:scale-90"
           >
             ✨ Karte hinzufügen
           </button>

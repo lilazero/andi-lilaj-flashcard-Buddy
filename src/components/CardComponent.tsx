@@ -62,9 +62,9 @@ export function CardComponent({
   return (
     <>
       <div>
-        <div className="p-6 transition-shadow bg-card rounded-lg shadow-md hover:shadow-lg">
+        <div className="p-6 transition-shadow rounded-lg shadow-md bg-card card">
           {/* Card Content */}
-          <div className="min-h-[150px] flex items-center justify-center mb-4 rounded-lg p-6 bg-input/5">
+          <div className="min-h-[150px] flex items-center justify-center mb-4 rounded-lg p-6 bg-input/60 hover:bg-input/80">
             <p className="text-xl font-semibold text-center text-foreground">
               {card.showAnswer ? card.back : card.front}
             </p>
@@ -80,20 +80,20 @@ export function CardComponent({
                 isLoading
                   ? "bg-muted text-muted-foreground cursor-not-allowed"
                   : card.showAnswer
-                  ? "bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                  : "bg-accent text-accent-foreground hover:bg-accent/90"
+                  ? "bg-hide-button text-hide-button-foreground hover:bg-hide-button/90"
+                  : "bg-show-button text-show-button-foreground hover:bg-show-button/90"
               }`}
             >
               {isLoading
                 ? "⏳ Wird geladen..."
                 : card.showAnswer
-                ? "❌ Antwort verstecken"
+                ? "✖️Antwort verstecken"
                 : "✅ Antwort zeigen"}
             </button>
             {/* EditButton */}
             <button
               onClick={() => setIsEditing(true)}
-              className="flex items-center gap-2 px-4 py-2 font-semibold text-secondary-foreground transition-colors bg-secondary rounded-lg cursor-pointer hover:bg-secondary/90"
+              className="flex items-center gap-2 px-4 py-2 font-semibold transition-colors rounded-lg cursor-pointer text-edit-button-foreground bg-edit-button hover:bg-edit-button/90"
             >
               <Edit size={18} /> {/* edit icon */}
               <span>Bearbeiten</span>
@@ -103,7 +103,7 @@ export function CardComponent({
             {!isConfirmingDelete ? (
               <button
                 onClick={handleDeleteClick}
-                className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-destructive rounded-lg hover:bg-destructive/90"
+                className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors rounded-lg bg-destructive hover:bg-destructive/90"
               >
                 <Trash2 size={18} />
                 <span>Löschen</span>
@@ -113,7 +113,7 @@ export function CardComponent({
                 {/* Confirm Delete */}
                 <button
                   onClick={handleConfirmDelete}
-                  className="flex items-center gap-2 px-4 py-2 font-semibold text-card-foreground transition-colors bg-chart-1 rounded-lg hover:bg-chart-1/90"
+                  className="flex items-center gap-2 px-4 py-2 font-semibold transition-colors rounded-lg text-card-foreground bg-chart-1 hover:bg-chart-1/90"
                   title="Löschen bestätigen"
                 >
                   <Check size={18} />
@@ -122,7 +122,7 @@ export function CardComponent({
                 {/* Cancel Delete */}
                 <button
                   onClick={handleCancelDelete}
-                  className="flex items-center gap-2 px-4 py-2 font-semibold text-muted-foreground transition-colors bg-border rounded-lg hover:bg-border/80"
+                  className="flex items-center gap-2 px-4 py-2 font-semibold transition-colors rounded-lg text-muted-foreground bg-border hover:bg-border/80"
                   title="Abbrechen"
                 >
                   <X size={18} />
@@ -136,7 +136,7 @@ export function CardComponent({
               {card.tags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 text-xs font-semibold text-accent-foreground bg-accent rounded-full"
+                  className="px-3 py-1 text-xs font-semibold rounded-full text-tag-text bg-tag-bg"
                 >
                   {tag}
                 </span>
