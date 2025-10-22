@@ -2,6 +2,9 @@
 
 A flashcard application built with **Next.js 15**, **React 19**, **TypeScript**, and **Tailwind CSS** and **shadcn**. By Andi Lilaj for the Javascript course at HsH
 
+My codetime badge:
+
+[![CodeTime Badge](https://shields.jannchie.com/endpoint?style=for-the-badge&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D34950)](https://codetime.dev)
 ## Features
 
 ### Core Functionality
