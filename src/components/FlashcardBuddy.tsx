@@ -51,10 +51,6 @@ export default function FlashcardBuddy() {
     setCards([...cards, newCard]);
   };
 
-  //* localStorage is available in any client-side context, but not during server-side rendering (SSR), since it's a browser API.
-  //* Which means to integrate XATA or some other database i have to burn this all to the ground and start over.
-  //* also load then save otherwise it saves an empty array over the one that's supposed to be loaded than it loads the empty one
-
   /*  Load cards from localStorage on component mount */
   const loadFromStorage = (): void => {
     try {
@@ -73,7 +69,7 @@ export default function FlashcardBuddy() {
         "[loadFromStorage] Error loading cards from localStorage:",
         error
       );
-      setCards([]); // Reset to empty array on error // TODO!: Change when implementing database
+      setCards([]); // Reset to empty array on error
     } finally {
       console.log("[loadFromStorage] Load attempt finished.");
     }
@@ -273,6 +269,7 @@ export default function FlashcardBuddy() {
          */}
 
         {/* Scrollable Card List or Empty State */}
+        {/* here i wanna add different tabs thats why i added this scrollable div */}
         <div className="h-[800px] overflow-y-auto pr-3">
           <div className="space-y-4">
             {cards.length === 0 ? (
