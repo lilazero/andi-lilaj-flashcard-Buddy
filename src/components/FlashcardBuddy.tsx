@@ -28,8 +28,7 @@ export default function FlashcardBuddy() {
         )
       );
       setLoadingCardId(null);
-      //TODO: es auf 500 bis 700 ändern, wie es im PDF verlangt ist. Im Moment ist es ok 500 ist zu langsam
-    }, 200);
+    }, 500);
   };
 
   const addCard = (front: string, back: string, tags: string[]): void => {
