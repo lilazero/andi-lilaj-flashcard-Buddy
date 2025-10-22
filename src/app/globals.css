@@ -164,7 +164,6 @@
     background-color: var(--input-hover);
   }
 
-  /* dark-mode focus outline for inputs */
   .dark input:focus,
   .dark textarea:focus,
   .dark select:focus {
@@ -174,7 +173,6 @@
 }
 
 @layer components {
-  /* Card container with background, border, padding and subtle shadow */
   .card {
     @apply border hover:border-edit-button;
   }
