@@ -273,34 +273,36 @@ export default function FlashcardBuddy() {
         {/* Card List or Empty State or there wont be the opportunity for an Empty State
          */}
 
-        {/* Card List or Empty State */}
-        <div className="space-y-4">
-          {cards.length === 0 ? (
-            <div className="p-8 text-center bg-white rounded-lg shadow-md">
-              <p className="mb-4 text-lg text-gray-600">
-                🎓 Noch keine Karten vorhanden. Füge deine erste Karte hinzu!
-              </p>
-            </div>
-          ) : getFilteredCards().length === 0 ? (
-            <div className="flex justify-center items-center p-8 text-center bg-white rounded-lg shadow-md min-h-[238px]">
-              <p className="mb-4 text-lg text-gray-600">
-                🔍 Keine Karten mit diesen Tags gefunden.
-              </p>
-            </div>
-          ) : (
-            <>
-              {getFilteredCards().map((card) => (
-                <CardComponent
-                  key={card.id}
-                  card={card}
-                  onToggleAnswer={toggleAnswer}
-                  onDelete={deleteCard}
-                  onEdit={updateCard}
-                  isLoading={loadingCardId === card.id}
-                />
-              ))}
-            </>
-          )}
+        {/* Scrollable Card List or Empty State */}
+        <div className="h-[800px] overflow-y-auto pr-3">
+          <div className="space-y-4">
+            {cards.length === 0 ? (
+              <div className="p-8 text-center bg-white rounded-lg shadow-md">
+                <p className="mb-4 text-lg text-gray-600">
+                  🎓 Noch keine Karten vorhanden. Füge deine erste Karte hinzu!
+                </p>
+              </div>
+            ) : getFilteredCards().length === 0 ? (
+              <div className="flex justify-center items-center p-8 text-center bg-white rounded-lg shadow-md min-h-[238px]">
+                <p className="mb-4 text-lg text-gray-600">
+                  🔍 Keine Karten mit diesen Tags gefunden.
+                </p>
+              </div>
+            ) : (
+              <>
+                {getFilteredCards().map((card) => (
+                  <CardComponent
+                    key={card.id}
+                    card={card}
+                    onToggleAnswer={toggleAnswer}
+                    onDelete={deleteCard}
+                    onEdit={updateCard}
+                    isLoading={loadingCardId === card.id}
+                  />
+                ))}
+              </>
+            )}
+          </div>
         </div>
 
         {/* Delete All Button only if cards.length > 0 */}
