@@ -62,10 +62,10 @@ export function CardComponent({
   return (
     <>
       <div>
-        <div className="p-6 transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
+        <div className="p-6 transition-shadow bg-card rounded-lg shadow-md hover:shadow-lg">
           {/* Card Content */}
-          <div className="min-h-[150px] flex items-center justify-center mb-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6">
-            <p className="text-xl font-semibold text-center text-gray-800">
+          <div className="min-h-[150px] flex items-center justify-center mb-4 rounded-lg p-6 bg-input/5">
+            <p className="text-xl font-semibold text-center text-foreground">
               {card.showAnswer ? card.back : card.front}
             </p>
           </div>
@@ -78,10 +78,10 @@ export function CardComponent({
               disabled={isLoading}
               className={`flex-1 px-4 py-2 rounded-lg cursor-pointer font-semibold transition-colors min-w-[120px] ${
                 isLoading
-                  ? "bg-gray-300 text-gray-700 cursor-not-allowed"
+                  ? "bg-muted text-muted-foreground cursor-not-allowed"
                   : card.showAnswer
-                  ? "bg-yellow-500 text-white hover:bg-yellow-600"
-                  : "bg-blue-500 text-white hover:bg-blue-600"
+                  ? "bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                  : "bg-accent text-accent-foreground hover:bg-accent/90"
               }`}
             >
               {isLoading
@@ -93,7 +93,7 @@ export function CardComponent({
             {/* EditButton */}
             <button
               onClick={() => setIsEditing(true)}
-              className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-purple-500 rounded-lg cursor-pointer hover:bg-purple-600"
+              className="flex items-center gap-2 px-4 py-2 font-semibold text-secondary-foreground transition-colors bg-secondary rounded-lg cursor-pointer hover:bg-secondary/90"
             >
               <Edit size={18} /> {/* edit icon */}
               <span>Bearbeiten</span>
@@ -103,7 +103,7 @@ export function CardComponent({
             {!isConfirmingDelete ? (
               <button
                 onClick={handleDeleteClick}
-                className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-red-500 rounded-lg hover:bg-red-600"
+                className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-destructive rounded-lg hover:bg-destructive/90"
               >
                 <Trash2 size={18} />
                 <span>Löschen</span>
@@ -113,7 +113,7 @@ export function CardComponent({
                 {/* Confirm Delete */}
                 <button
                   onClick={handleConfirmDelete}
-                  className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-green-500 rounded-lg hover:bg-green-600"
+                  className="flex items-center gap-2 px-4 py-2 font-semibold text-card-foreground transition-colors bg-chart-1 rounded-lg hover:bg-chart-1/90"
                   title="Löschen bestätigen"
                 >
                   <Check size={18} />
@@ -122,7 +122,7 @@ export function CardComponent({
                 {/* Cancel Delete */}
                 <button
                   onClick={handleCancelDelete}
-                  className="flex items-center gap-2 px-4 py-2 font-semibold text-white transition-colors bg-gray-500 rounded-lg hover:bg-gray-600"
+                  className="flex items-center gap-2 px-4 py-2 font-semibold text-muted-foreground transition-colors bg-border rounded-lg hover:bg-border/80"
                   title="Abbrechen"
                 >
                   <X size={18} />
@@ -136,7 +136,7 @@ export function CardComponent({
               {card.tags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full"
+                  className="px-3 py-1 text-xs font-semibold text-accent-foreground bg-accent rounded-full"
                 >
                   {tag}
                 </span>

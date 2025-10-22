@@ -38,20 +38,17 @@ export default function EditCardForm({
   };
 
   return (
-    <div className="p-6 bg-white border-2 border-purple-500 rounded-lg shadow-lg">
+    <div className="p-6 bg-card border-2 border-secondary rounded-lg shadow-lg">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-bold text-gray-800">
+        <h3 className="text-2xl font-bold text-foreground">
           ✏️ Karte bearbeiten
         </h3>
         <button
           onClick={onCancel}
-          className="p-1 transition-colors rounded cursor-pointer hover:bg-gray-100"
+          className="p-1 transition-colors rounded cursor-pointer hover:bg-input/10"
           title="Abbrechen"
         >
-          <X
-            size={24}
-            className="text-gray-600 cursor-pointer hover:border-2"
-          />
+          <X size={24} className="text-muted-foreground cursor-pointer" />
         </button>
       </div>
 
@@ -60,7 +57,7 @@ export default function EditCardForm({
         <div>
           <label
             htmlFor="edit-front"
-            className="block mb-2 text-sm font-semibold text-gray-700"
+            className="block mb-2 text-sm font-semibold text-foreground"
           >
             📄Vorderseite (Frage)
           </label>
@@ -69,7 +66,7 @@ export default function EditCardForm({
             type="text"
             value={front}
             onChange={(e) => setFront(e.target.value)}
-            className="w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
+            className="w-full px-4 py-3 transition-colors border-2 border-input rounded-lg focus:outline-none focus:border-secondary"
           />
         </div>
 
@@ -77,7 +74,7 @@ export default function EditCardForm({
         <div>
           <label
             htmlFor="edit-back"
-            className="block mb-2 text-sm font-semibold text-gray-700"
+            className="block mb-2 text-sm font-semibold text-foreground"
           >
             📲Rückseite (Antwort)
           </label>
@@ -86,14 +83,14 @@ export default function EditCardForm({
             type="text"
             value={back}
             onChange={(e) => setBack(e.target.value)}
-            className="w-full px-4 py-3 transition-colors border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-500"
+            className="w-full px-4 py-3 transition-colors border-2 border-input rounded-lg focus:outline-none focus:border-secondary"
           />
         </div>
         {/* Tags Input */}
         <div>
           <label
             htmlFor="edit-tags"
-            className="block mb-2 text-sm font-semibold text-gray-700"
+            className="block mb-2 text-sm font-semibold text-foreground"
           >
             🏷️ Tags (komma-getrennt, optional)
           </label>
@@ -110,7 +107,7 @@ export default function EditCardForm({
               {parseTags(tagsInput).map((tag, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 text-xs font-semibold text-purple-800 bg-purple-100 rounded-full"
+                  className="px-3 py-1 text-xs font-semibold text-secondary-foreground bg-secondary rounded-full"
                 >
                   {tag}
                 </span>
@@ -124,7 +121,7 @@ export default function EditCardForm({
           {/* Save Button */}
           <button
             type="submit"
-            className="flex-1 px-4 py-3 font-semibold text-white transition-all transform rounded-lg cursor-pointer bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 hover:scale-105 active:scale-95"
+            className="flex-1 px-4 py-3 font-semibold text-primary-foreground transition-all transform rounded-lg cursor-pointer bg-primary hover:bg-primary/90 active:scale-95"
           >
             💾 Speichern
           </button>
@@ -133,7 +130,7 @@ export default function EditCardForm({
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 px-4 py-3 font-semibold text-gray-700 transition-colors bg-gray-300 rounded-lg cursor-pointer hover:bg-gray-400"
+            className="flex-1 px-4 py-3 font-semibold text-muted-foreground transition-colors bg-border rounded-lg cursor-pointer hover:bg-border/80"
           >
             ❌ Abbrechen
           </button>
