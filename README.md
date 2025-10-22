@@ -5,6 +5,11 @@ A flashcard application built with **Next.js 15**, **React 19**, **TypeScript**,
 My codetime badge:
 
 [![CodeTime Badge](https://shields.jannchie.com/endpoint?style=for-the-badge&color=222&url=https%3A%2F%2Fapi.codetime.dev%2Fv3%2Fusers%2Fshield%3Fuid%3D34950)](https://codetime.dev)
+
+Vercel Deployment:
+
+https://andi-lilaj-flashcard-buddy.vercel.app/
+
 ## Features
 
 ### Core Functionality
