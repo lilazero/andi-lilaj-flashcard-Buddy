@@ -52,22 +52,22 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the a
 └── 📁src
     └── 📁app
         ├── favicon.ico         >comes with NextJS
-        ├── globals.css		>shadcn theme
-        ├── layout.tsx		>Rootlayout with metadata
-        ├── page.tsx		>Main Start Page. It was FlashCardBuddy.tsx as the only component and it goes downhill from there.
-    └── 📁components
+        ├── globals.css		    >shadcn theme
+        ├── layout.tsx		    >Rootlayout with metadata
+        ├── page.tsx		    >Main Start Page. It was FlashCardBuddy.tsx as the only component and it goes downhill from there.
+        └── 📁components
         └── 📁ui
-            ├── button.tsx	>shadcn now i remember i never used it 🤦‍♂️
-            ├── sonner.tsx	>shadcn toast notification component
-        ├── AddCardForm.tsx	>Card Creation Form
+            ├── button.tsx	    >shadcn now i remember i never used it 🤦‍♂️
+            ├── sonner.tsx	    >shadcn toast notification component
+        ├── AddCardForm.tsx	    >Card Creation Form
         ├── CardComponent.tsx   >Contains the Front(question), Back(Answer), and buttons in the card
         ├── EditCardForm.tsx	>Copy of AddCardForm but edit's the Card where the Edit button was clicked
         ├── FlashcardBuddy.tsx  >This is where the Magic happens, It's the Main component that brings everything together
-				^And holds the main inter-component state management like the displayed Card array
-				^the selected Tags to be shown from TagFilter or the Search on querychange setSearchQuery
-        ├── SearchBar.tsx	>A search bar that also searches tags
-        ├── TagFilter.tsx	>Shows filters, select filters, selected filters restrict the card list to the filters
-				^the tag toggle works by showing only cards where all the tags are present otherwise it's any of the tags
+				                ^And holds the main inter-component state management like the displayed Card array
+				                ^the selected Tags to be shown from TagFilter or the Search on querychange setSearchQuery
+        ├── SearchBar.tsx	    >A search bar that also searches tags
+        ├── TagFilter.tsx	    >Shows filters, select filters, selected filters restrict the card list to the filters
+				                ^the tag toggle works by showing only cards where all the tags are present otherwise it's any of the tags
     └── 📁lib
         └── utils.ts		>shadcn helper
 ```
