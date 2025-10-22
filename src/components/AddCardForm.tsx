@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ChevronDown, Plus } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 interface AddCardFormProps {
   onAddCard: (front: string, back: string, tags: string[]) => void;
@@ -47,8 +47,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
   return (
     <div className="mb-8 bg-white rounded-lg shadow-md">
       {/* Collapsible Header */}
-      <button
-        type="button"
+      <div
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between w-full px-6 py-4 transition-colors rounded-lg hover:bg-gray-50"
       >
@@ -63,7 +62,7 @@ export default function AddCardForm({ onAddCard }: AddCardFormProps) {
             isOpen ? "rotate-180" : ""
           }`}
         />
-      </button>
+      </div>
 
       {/* Collapsible Form Content */}
       {isOpen && (
