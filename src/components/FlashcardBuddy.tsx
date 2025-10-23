@@ -248,24 +248,25 @@ export default function FlashcardBuddy() {
             </>
           )}
         </div>
+
         {/* Search and Tag Filter container */}
-        <div className="p-4 my-2 rounded-lg bg-[var(--color-card)] text-[var(--color-card-foreground)] card">
-          {/* Search Bar */}
-          {cards.length > 0 && (
+        {cards.length > 0 && (
+          <div className="p-4 my-2 rounded-lg bg-[var(--color-card)] text-[var(--color-card-foreground)] card">
+            {/* Search Bar */}
             <SearchBar query={searchQuery} onQueryChange={setSearchQuery} />
-          )}
-          {/* Card Filter*/}
-          {cards.length > 0 && getAllTags().length > 0 && (
-            <TagFilter
-              allTags={getAllTags()}
-              tagCounts={getTagCounts()}
-              selectedTags={selectedTags}
-              onTagsChange={setSelectedTags}
-              includeAllTags={includeAllTags}
-              onIncludeAllChange={setIncludeAllTags}
-            />
-          )}
-        </div>
+            {/* Card Filter*/}
+            {cards.length > 0 && getAllTags().length > 0 && (
+              <TagFilter
+                allTags={getAllTags()}
+                tagCounts={getTagCounts()}
+                selectedTags={selectedTags}
+                onTagsChange={setSelectedTags}
+                includeAllTags={includeAllTags}
+                onIncludeAllChange={setIncludeAllTags}
+              />
+            )}
+          </div>
+        )}
 
         {/* Card List or Empty State or there wont be the opportunity for an Empty State
          */}
